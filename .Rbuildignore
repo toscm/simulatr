@@ -1,0 +1,10 @@
+^.github$
+^.lintr$
+^.Rproj.user$
+^.Rproj$
+^.vscode$
+^CHANGELOG.md$
+^CONTRIBUTING.md$
+^data-raw$
+^INSTALLATION.md$
+^LICENSE.md$

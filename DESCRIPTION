@@ -1,0 +1,27 @@
+Package: simulatr
+Title: A Simulator for Omics Datasets
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Tahmina",
+           family = "Mojumder",
+           role = c("aut", "cre"),
+           email = "tahmina.mojumder@ur.de"),
+    person(given = "Tobias",
+           family = "Schmidt",
+           role = c("ths", "ctb"),
+           email = "tobias2.schmidt@ukr.de"))
+Description: Functions for simulating omics datasets either from scratch or from existing, publicly available datasets. Configurable parameters are correlation structure, biases, noise and the relationship between predictors and outcome variable.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+biocViews:
+LazyDataCompression:xz
+Imports:
+    GEOquery
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends:
+    R (>= 2.10)

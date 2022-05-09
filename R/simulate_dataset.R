@@ -1,0 +1,36 @@
+#' @export
+#' @name simulate_dataset
+#' @title Simulate a Dataset
+#' @description `simulate_dataset()` returns a dataset of size n*p
+#' @param n The number of samples.
+#' @param p The number of features.
+#' @param beta The model coefficients.
+#' @param base The dataset to use as basis for the generation.
+#' @param family The type of model to use when generating the outcome variable.
+#' Either `gaussian`, `binomial` or `cox`.
+#' @param cor Correlation strength within the data
+#' @param cortype Method to use for generating the correlation within the
+#' dataset. See below for details.
+#' @param noise Amount of noise to add to each predictor
+#' @param noisevar Variance of noise
+#' @param bias Amount of bias to simulate
+#' @param biastype Method to use for generating the bias. See below for details.
+#' @return A matrix of size n*p.
+#' @examples
+#' # to be done
+#' @details to be done
+simulate_dataset <- function(
+	n,
+	p,
+	beta,
+	base=NULL,
+	family="gaussian",
+	cor=0.5,
+	cortype=1,
+	noise=1,
+	noisevar=1,
+	bias=0,
+	biastype=1
+) {
+	# to be done
+}
