@@ -80,4 +80,10 @@ Source: <https://r-pkgs.org/release.html>
 
 ## Related Work
 
-to be done
+### Links 
+
+* Omics Simla <https://omicssimla.sourceforge.io/>
+* micro array data simulation <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5003477/>
+
+
+
