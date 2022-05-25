@@ -1,7 +1,7 @@
 #' @export
 #' @name list_datasets
 #' @title List Datasets useable as Base Datasets for Simulations
-#' @description `lists_datasets()` returns a list of datasets than can be passed
+#' @description `lists_datasets()` returns a list of datasets that can be passed
 #' to `simulate_dataset` as basis for the simulation.
 #' @param platform e.g. HG-U133B for mRNA datasets measured with the Affymetrix
 #' HG-U133B microarray.
@@ -15,10 +15,26 @@
 #' @examples
 #' # to be done
 #' @details to be done
-list_datasets <- function(platform, source="GEO") {
-	# to be done
-	#
-	# See e.g. section 6 of the vignette of package GEOquery
-	# (https://www.bioconductor.org/packages/release/bioc/html/GEOquery.html),
-	# for an example on how to find all GEOquery datasets for platform HG-U133B.
+
+#library
+library(GEOquery)
+
+#get data for specific platform 
+
+getGPLData <- function(gplnum){
+  # access gpl data
+  gpl <- getGEO(gplnum)
+ 
+  # create matrix for data of the given platform
+  a <- c(Meta(gpl)$geo_accession,Meta(gpl)$title,Meta(gpl)$technology,Meta(gpl)$organism,Meta(gpl)$status)
+  matrix <- rbind(a)
+  colnames(matrix) <- c('GEO Accession', 'Title', 'Technology', 'Organism', 'Status')
+ 
+  #view matrix
+  View(matrix)
+  
+  
 }
+
+getGPLData('GPL32170')
+
