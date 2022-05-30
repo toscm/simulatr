@@ -83,18 +83,18 @@ Source: <https://r-pkgs.org/release.html>
 ### Summary
 
 |                                                					| MOSim		| MadSim	| Simulatr |	|
-|:--------------------------------------------------------------------------|:--------------|:---------|:---------|:---|
-| number of genes can be specified								| x			|		| x        |	|
+|:------------------------------------------------------------------|:----------|:----------|:---------|:---|
+| number of genes can be specified								    | x			|		    | x        |	|
 
-| number of features can be specified								|			|		| x        |	|
+| number of features can be specified								|			|		    | x        |	|
 
-| percentage of differentially expressed genes can be specified			|			|		| x		|	|
+| percentage of differentially expressed genes can be specified		|			|	    	| x         |	|
 
-| correlation structure can be specified         					| x			|          | x		|	|
+| correlation structure can be specified         					| x			|            | x		|	|
 
-| type of data (RNAseq/DNAseq)  can be specified 					| x			| x        | x		|	|
+| type of data (RNAseq/DNAseq)  can be specified 					| x			| x         | x		    |	|
 
-| platform (HGU133a, ...)  can be specified							| x			|		| x		|	|
+| platform (HGU133a, ...)  can be specified							| x			|		    | x		    |	|
 
 | standard deviation or noise can be specified						| x			| 		| x		|	|
 
