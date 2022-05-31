@@ -15,25 +15,8 @@
 #' @examples
 #' # to be done
 #' @details to be done
-
-#library
-library(GEOquery)
-
-#get data for specific platform 
-
-getGPLData <- function(gplnum='GPL96'){
-  # access gpl data
-  gpl <- getGEO('GPL96')
-   
-  # create data table for the given platform
-  a <- c(Meta(gpl)$geo_accession,Meta(gpl)$title,Meta(gpl)$technology,Meta(gpl)$organism,Meta(gpl)$status)
-  dataTable<- rbind(a)
-  colnames(dataTable) <- c('GEO Accession', 'Title', 'Technology', 'Organism', 'Status')
-  
-  #return data table
-  return(dataTable)
+list_datasets <- function(platform='GPL32170', source="GEOquery") {
+  # retrieve all datasets measured with <platform> from GEOquery:
+  x <- list() # this is just a placeholder for the real colde
+  return(x)
 }
-
-getGPLData('GPL32170')
-
-#another important information could be sample_id

@@ -10,16 +10,15 @@ An R package for simulating omics datasets either from scratch or from existing,
 
 ## Table of Contents
 
-- [simulatr <img src="inst/logo/simulatr.png" align="right" width="100" />](#simulatr-)
-  - [Table of Contents](#table-of-contents)
-  - [Purpose](#purpose)
-  - [Next Steps](#next-steps)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [Related Work](#related-work)
-    - [Summary](#summary)
-    - [Links](#links)
+- [Table of Contents](#table-of-contents)
+- [Purpose](#purpose)
+- [Next Steps](#next-steps)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Related Work](#related-work)
+  - [Summary](#summary)
+  - [Links](#links)
 
 ## Purpose
 
@@ -98,13 +97,8 @@ Source: <https://r-pkgs.org/release.html>
 | upper and lower limit can be specified                        |       | x      | x        |      |
 | easy to read instruction                                      |       |        | x        |      |
 
-
 * x means yes
-
-### Links
+### Links 
 
 * Omics Simla <https://omicssimla.sourceforge.io/>
 * micro array data simulation <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5003477/>
-
-
-

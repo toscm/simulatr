@@ -4,7 +4,7 @@
 \alias{list_datasets}
 \title{List Datasets useable as Base Datasets for Simulations}
 \usage{
-list_datasets(platform, source = "GEO")
+list_datasets(platform = "GPL32170", source = "GEOquery")
 }
 \arguments{
 \item{platform}{e.g. HG-U133B for mRNA datasets measured with the Affymetrix
@@ -21,7 +21,7 @@ p: number of features in the dataset
 download: function to actually download the dataset
 }
 \description{
-\code{lists_datasets()} returns a list of datasets than can be passed
+\code{lists_datasets()} returns a list of datasets that can be passed
 to \code{simulate_dataset} as basis for the simulation.
 }
 \details{
