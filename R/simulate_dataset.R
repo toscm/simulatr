@@ -35,7 +35,7 @@ simulate_dataset <- function(
 	bias=0,
 	biastype=1
 ) {
-	matrix(n, p, rnorm(n*p))
+	return (matrix(n, p, rnorm(n*p)))
 }
 
 # should return a matrix of size 100*1000 with genes available on the HG-U133B microarray as features
