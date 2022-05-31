@@ -21,20 +21,19 @@ library(GEOquery)
 
 #get data for specific platform 
 
-getGPLData <- function(gplnum){
+getGPLData <- function(gplnum='GPL96'){
   # access gpl data
-  gpl <- getGEO(gplnum)
- 
-  # create matrix for data of the given platform
+  gpl <- getGEO('GPL96')
+   
+  # create data table for the given platform
   a <- c(Meta(gpl)$geo_accession,Meta(gpl)$title,Meta(gpl)$technology,Meta(gpl)$organism,Meta(gpl)$status)
-  matrix <- rbind(a)
-  colnames(matrix) <- c('GEO Accession', 'Title', 'Technology', 'Organism', 'Status')
- 
-  #view matrix
-  View(matrix)
+  dataTable<- rbind(a)
+  colnames(dataTable) <- c('GEO Accession', 'Title', 'Technology', 'Organism', 'Status')
   
-  
+  #return data table
+  return(dataTable)
 }
 
 getGPLData('GPL32170')
 
+#another important information could be sample_id

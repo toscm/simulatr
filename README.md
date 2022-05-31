@@ -10,13 +10,16 @@ An R package for simulating omics datasets either from scratch or from existing,
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Purpose](#purpose)
-- [Next Steps](#next-steps)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Related Work](#related-work)
+- [simulatr <img src="inst/logo/simulatr.png" align="right" width="100" />](#simulatr-)
+  - [Table of Contents](#table-of-contents)
+  - [Purpose](#purpose)
+  - [Next Steps](#next-steps)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [Related Work](#related-work)
+    - [Summary](#summary)
+    - [Links](#links)
 
 ## Purpose
 
@@ -82,22 +85,23 @@ Source: <https://r-pkgs.org/release.html>
 
 ### Summary
 
-|                                                					| MOSim		| MadSim	| Simulatr |	|
-|:--------------------------------------------------------------------------|:--------------|:---------|:---------|:---|
-| number of genes can be specified								| x			|		| x        |	|
-| number of features can be specified								|			|		| x        |	|
-| percentage of differentially expressed genes can be specified			|			|		| x		|	|
-| correlation structure can be specified         					| x			|          | x		|	|
-| type of data (RNAseq/DNAseq)  can be specified 					| x			| x        | x		|	|
-| platform (HGU133a, ...)  can be specified							| x			|		| x		|	|
-| standard deviation or noise can be specified						| x			| 		| x		|	|
-| ability to replicate given dataset								|			|		| x		|	|
-| upper and lower limit can be specified 							| x			|		| x		|	|
-| easy to read instruction										| x			| x		| x		|	|
+|                                                               | MOSim | MadSim | Simulatr |      |
+| :------------------------------------------------------------ | :---- | :----- | :------- | :--- |
+| number of genes can be specified                              |       | x      | x        |      |
+| number of features can be specified                           | x     | x      | x        |      |
+| percentage of differentially expressed genes can be specified | x     | x      | x        |      |
+| correlation structure can be specified                        |       | x      | x        |      |
+| type of data (RNAseq/DNAseq)  can be specified                | x     |        | x        |      |
+| platform (HGU133a, ...)  can be specified                     |       |        | x        |      |
+| standard deviation or noise can be specified                  |       | x      | x        |      |
+| ability to work with base dataset                             | x     | x      | x        |      |
+| upper and lower limit can be specified                        |       | x      | x        |      |
+| easy to read instruction                                      |       |        | x        |      |
 
-* x means no
 
-### Links 
+* x means yes
+
+### Links
 
 * Omics Simla <https://omicssimla.sourceforge.io/>
 * micro array data simulation <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5003477/>

@@ -35,7 +35,8 @@ simulate_dataset <- function(
 	bias=0,
 	biastype=1
 ) {
-	matrix(n, p, rnorm(n*p)
+	matrix(n, p, rnorm(n*p))
 }
 
-x <- simulate_dataset(n=100, p=1000, "HG-U133B")  # should return a matrix of size 100*1000 with genes available on the HG-U133B microarray as features
+# should return a matrix of size 100*1000 with genes available on the HG-U133B microarray as features
+x <- simulate_dataset(n=100, p=1000) 
