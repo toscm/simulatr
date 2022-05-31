@@ -7,8 +7,8 @@
 simulate_dataset(
   n,
   p,
-  beta,
-  base = NULL,
+  beta = NULL,
+  base = "HG-U133B",
   family = "gaussian",
   cor = 0.5,
   cortype = 1,
@@ -25,7 +25,8 @@ simulate_dataset(
 
 \item{beta}{The model coefficients.}
 
-\item{base}{The dataset to use as basis for the generation.}
+\item{base}{The dataset to use as basis for the generation, e.g. HG-U133B
+for mRNA datasets measured with the Affymetrix HG-U133B microarray.}
 
 \item{family}{The type of model to use when generating the outcome variable.
 Either \code{gaussian}, \code{binomial} or \code{cox}.}
@@ -53,5 +54,9 @@ A matrix of size n*p.
 to be done
 }
 \examples{
-# to be done
+\dontrun{
+x <- simulate_dataset(n=100, p=1000, base="HG-U133B")
+# should return a matrix of size 100*1000 with genes measured by the
+# HG-U133B microarray as features
+}
 }

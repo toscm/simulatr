@@ -5,7 +5,8 @@
 #' @param n The number of samples.
 #' @param p The number of features.
 #' @param beta The model coefficients.
-#' @param base The dataset to use as basis for the generation.
+#' @param base The dataset to use as basis for the generation, e.g. HG-U133B
+#' for mRNA datasets measured with the Affymetrix HG-U133B microarray.
 #' @param family The type of model to use when generating the outcome variable.
 #' Either `gaussian`, `binomial` or `cox`.
 #' @param cor Correlation strength within the data
@@ -17,13 +18,17 @@
 #' @param biastype Method to use for generating the bias. See below for details.
 #' @return A matrix of size n*p.
 #' @examples
-#' # to be done
+#' \dontrun{
+#' x <- simulate_dataset(n=100, p=1000, base="HG-U133B")
+#' # should return a matrix of size 100*1000 with genes measured by the
+#' # HG-U133B microarray as features
+#' }
 #' @details to be done
 simulate_dataset <- function(
 	n,
 	p,
-	beta,
-	base=NULL,
+	beta=NULL,
+	base="HG-U133B",
 	family="gaussian",
 	cor=0.5,
 	cortype=1,
@@ -32,5 +37,5 @@ simulate_dataset <- function(
 	bias=0,
 	biastype=1
 ) {
-	# to be done
+	matrix(rnorm(n*p), n, p)
 }
