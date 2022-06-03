@@ -24,18 +24,37 @@
 #' # HG-U133B microarray as features
 #' }
 #' @details to be done
-simulate_dataset <- function(
-	n,
-	p,
-	beta=NULL,
-	base="HG-U133B",
-	family="gaussian",
-	cor=0.5,
-	cortype=1,
-	noise=1,
-	noisevar=1,
-	bias=0,
-	biastype=1
-) {
-	matrix(rnorm(n*p), n, p)
+#simulate_dataset <- function(
+#	n=3,
+#	p=4,
+	#beta=NULL,
+	#base="HG-U133B",
+	#family="gaussian",
+	#cor=0.5,
+	#cortype=1,
+	#noise=1,
+	#noisevar=1,
+	#bias=0,
+	#biastype=1
+	
+#) 
+
+
+simulate_dataset <- function(n=1000,p=100)
+
+{
+  
+      
+      mat <- matrix(,n,p)
+      var <- vector()
+      
+      for (i in 1:n){
+        
+          var <- rnorm(p)
+          mat[i,1:p] <- var
+        
+      }
+      
+      return(mat)
 }
+
