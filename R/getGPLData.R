@@ -12,3 +12,4 @@ getGPLData <- function(gplnum){
 }
 
 # getGPLData('GPL32170')
+install.packages("languageserver")

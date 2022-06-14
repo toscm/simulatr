@@ -4,13 +4,11 @@
 \alias{list_datasets}
 \title{List Datasets useable as Base Datasets for Simulations}
 \usage{
-list_datasets(platform = "GPL32170", source = "GEOquery")
+list_datasets(pltfrm = "GPL95")
 }
 \arguments{
 \item{platform}{e.g. HG-U133B for mRNA datasets measured with the Affymetrix
 HG-U133B microarray.}
-
-\item{source}{where to search for datasets.}
 }
 \value{
 A named list of datasets, where each dataset is represented by a list
@@ -25,8 +23,9 @@ download: function to actually download the dataset
 to \code{simulate_dataset} as basis for the simulation.
 }
 \details{
-to be done
+list_datasets(pltfrm = "GPL95")
 }
 \examples{
 # to be done
+
 }

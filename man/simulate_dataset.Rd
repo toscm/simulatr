@@ -4,19 +4,7 @@
 \alias{simulate_dataset}
 \title{Simulate a Dataset}
 \usage{
-simulate_dataset(
-  n,
-  p,
-  beta = NULL,
-  base = "HG-U133B",
-  family = "gaussian",
-  cor = 0.5,
-  cortype = 1,
-  noise = 1,
-  noisevar = 1,
-  bias = 0,
-  biastype = 1
-)
+simulate_dataset(n = 1000, p = 100, beta = NULL, base = NULL)
 }
 \arguments{
 \item{n}{The number of samples.}
@@ -25,8 +13,8 @@ simulate_dataset(
 
 \item{beta}{The model coefficients.}
 
-\item{base}{The dataset to use as basis for the generation, e.g. HG-U133B
-for mRNA datasets measured with the Affymetrix HG-U133B microarray.}
+\item{base}{The dataset to use as basis for the generation, e.g. HG-U133B for
+mRNA datasets measured with the Affymetrix HG-U133B microarray.}
 
 \item{family}{The type of model to use when generating the outcome variable.
 Either \code{gaussian}, \code{binomial} or \code{cox}.}
@@ -51,7 +39,9 @@ A matrix of size n*p.
 \code{simulate_dataset()} returns a dataset of size n*p
 }
 \details{
-to be done
+simulate_dataset <- function( n=3, p=4, beta=NULL, base="HG-U133B",
+family="gaussian", cor=0.5, cortype=1, noise=1, noisevar=1, bias=0,
+biastype=1 )
 }
 \examples{
 \dontrun{
