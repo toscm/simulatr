@@ -27,17 +27,45 @@
 #' @details simulate_dataset <- function( n=3, p=4, beta=NULL, base="HG-U133B",
 #'   family="gaussian", cor=0.5, cortype=1, noise=1, noisevar=1, bias=0,
 #'   biastype=1 )
-simulate_dataset <- function(n=1000, p=100, beta=NULL, base=NULL)
-{
+#'   
+#'   
+#'   
+#'   
+
+
+
+#1 GPL == 1 or 1+ GSE 
+
+simulate_dataset <- function(n=4,p=2,beta=NULL,base=NULL,platform=NULL,noise=0,noisevar=0,gse=NULL,family=NULL){
+    if(base==NULL && beta==NULL){
       mat <- matrix(,n,p)
       var <- vector()
-      
-      for (i in 1:n){
-        
+        for (i in 1:n){
           var <- rnorm(p)
           mat[i,1:p] <- var
-        
       }
-      
       return(mat)
+    }
+    else if(gse!=NULL){
+      return(simulate_gse(gse))
+    }
+   else if(gpl != NULL){
+     gse_ids <- list_datasets(platform)$gse_id
+     for(i in gse){
+       return(simulate_gse(gse_ids))
+     }
+  }
 }
+
+
+simulate_gse <- function(n,p,gse){
+    gse <- "GSE781"
+    temp <- getGEO(gse)
+    tempnames(GPLList(gse))
+    temp_data <- exprs(temp_base[[1]])
+    temp_sample <- sample(temp_data,size=n*p,replace=FALSE)
+    temp_matrix <- matrix(temp_sample,n,p)
+    return(temp_matrix)
+}
+  
+

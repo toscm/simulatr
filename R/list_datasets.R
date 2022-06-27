@@ -46,6 +46,7 @@ list_datasets <- function(pltfrm='GPL95'){
       platform_id[i] <- gse_data$platform_id
       #series_id[i] <- Meta(get_gsm_data)$series_id
       data_row_count[i] <- gse_data$data_row_count
+      #GPLList() and GSMList() can be called
   }
     
     gse_dataframe <- data.frame(
