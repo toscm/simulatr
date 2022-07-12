@@ -37,7 +37,7 @@ Evaluation of statistical methods is best done with datasets where all relevant 
   - [ ] Use case 4: user specifies only a platform: download all samples for that platform (will require one more helper function `get_samples()` or similar.
   - [ ] Use case 5: no base dataset and no platform specfied
   - [ ] Implement `noise_func` / `noise_func_args` arguments: start with noise drawn from a normal distribution or a uniform distribution
-  - [ ] Implement `bias/biastype` argument: be creative
+  - [ ] Implement `bias_func` / `bias_func_args` arguments: first function name should be `constant_batch_effect` and it should take the number `n` of batches, the number `p` of affected features and the the value `s` given the batch-effect-strength.
   - [ ] Implement `cor` / `cortype` argument: be creative
 - [ ] Implement the function `list_dataset` taking the output of `get_dataset` as argument.
 - [x] Get the coverage check to pass.
