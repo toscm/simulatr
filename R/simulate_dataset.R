@@ -20,52 +20,77 @@
 #' @return A matrix of size n*p.
 #' @examples
 #' \dontrun{
-#' x <- simulate_dataset(n=100, p=1000, base="HG-U133B")
+#' x <- simulate_dataset(n = 100, p = 1000, base = "HG-U133B")
 #' # should return a matrix of size 100*1000 with genes measured by the
 #' # HG-U133B microarray as features
 #' }
 #' @details simulate_dataset <- function( n=3, p=4, beta=NULL, base="HG-U133B",
 #'   family="gaussian", cor=0.5, cortype=1, noise=1, noisevar=1, bias=0,
 #'   biastype=1 )
-#'   
-#'   
-#'   
-#'   
+#'
+#'
+#'
+#' 1 ta gse te 1 ta gpl kintu 1 ta gpl e onekgula gse
 
 
 
-#1 GPL == 1 or 1+ GSE 
+# 1 GPL == 1 or 1+ GSE
 
-simulate_dataset <- function(n=4,p=2,beta=NULL,base=NULL,platform=NULL,noise=0,noisevar=0,gse=NULL,family=NULL){
-    if(base==NULL && beta==NULL){
-      mat <- matrix(,n,p)
-      var <- vector()
-        for (i in 1:n){
-          var <- rnorm(p)
-          mat[i,1:p] <- var
-      }
-      return(mat)
+
+library(GEOquery)
+
+simulate_dataset <- function(n, p, gse = NULL, noise = 0) {
+  if (is.null(gse)) {
+    mat <- matrix(, p, n)
+    var <- vector()
+    for (i in 1:p) {
+      var <- rnorm(n)
+      mat[i, 1:n] <- var
+      df <- data.frame(mat)
     }
-    else if(gse!=NULL){
-      return(simulate_gse(gse))
-    }
-   else if(gpl != NULL){
-     gse_ids <- list_datasets(platform)$gse_id
-     for(i in gse){
-       return(simulate_gse(gse_ids))
-     }
+    result <- df
+  } else {
+    result <- simulate_gse(n, p, gse)
   }
+
+  if(noise != 0){
+    result <- add_noise(n,p,result,noise)
+  }
+
+  return(result)
 }
 
-
-simulate_gse <- function(n,p,gse){
-    gse <- "GSE781"
-    temp <- getGEO(gse)
-    tempnames(GPLList(gse))
-    temp_data <- exprs(temp_base[[1]])
-    temp_sample <- sample(temp_data,size=n*p,replace=FALSE)
-    temp_matrix <- matrix(temp_sample,n,p)
-    return(temp_matrix)
+simulate_gse <- function(n, p, gse = "GSE3821") {
+  # gse <- "GSE133001", "GSE362" p#22
+  #gse <- "GSE133001"
+  temp_data <- get_dataset(gse)
+  # feature name
+  rnames <- sample(rownames(temp_data), p, replace = FALSE)
+  # sample name
+  cnames <- sample(colnames(temp_data), n, replace = FALSE)
+  # data value
+  temp_list <- sample(temp_data, n * p, replace = FALSE)
+  data <- data.frame(matrix(temp_list, nrow = p, ncol = n))
+  colnames(data) <- cnames
+  rownames(data) <- rnames
+  return(data)
 }
-  
 
+get_dataset <- function(gse = "GSE3821") {
+  # gse <- "GSE133001", "GSE362" p#22
+  temp_base <- getGEO(gse, GSEMatrix = TRUE)
+  x <- temp_base[[1]]
+  temp_dat <- exprs(x)
+
+  return(temp_dat)
+}
+
+#rbinom, rpois, runif
+
+add_noise <- function(n, p, gse, noise) {
+    nchanged <- round(n*p*noise/4)*2
+    temp_dataset <- gse
+    temp_dataset[1:nchanged,1] <- rnorm(nchanged,1,1)
+    temp_dataset[1,1:nchanged] <- rnorm(nchanged,1,1)
+    return(temp_dataset)
+}
