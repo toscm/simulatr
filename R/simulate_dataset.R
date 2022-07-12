@@ -13,6 +13,9 @@
 #' @param cor Correlation strength within the data
 #' @param cortype Method to use for generating the correlation within the
 #'   dataset. See below for details.
+#' @param noise_func A function taking the matrix as first argument and other
+#' optional parameters as futher arguments
+#' @param noise_func_args Additional arguments to be passed to `noise_func`
 #' @param noise Amount of noise to add to each predictor
 #' @param noisevar Variance of noise
 #' @param bias Amount of bias to simulate
@@ -23,6 +26,8 @@
 #' x <- simulate_dataset(n = 100, p = 1000, base = "HG-U133B")
 #' # should return a matrix of size 100*1000 with genes measured by the
 #' # HG-U133B microarray as features
+#' x2 <- simulate(n, p, gse = matrix(rnorm(25), 5, 5), noise_func = unif_noise,
+#' noise_func_args = list(min=0, max=1))
 #' }
 #' @details simulate_dataset <- function( n=3, p=4, beta=NULL, base="HG-U133B",
 #'   family="gaussian", cor=0.5, cortype=1, noise=1, noisevar=1, bias=0,
@@ -39,7 +44,11 @@
 
 library(GEOquery)
 
-simulate_dataset <- function(n, p, gse = NULL, noise = 0) {
+simulate_dataset <- function(n,
+                             p,
+                             gse = NULL,
+                             noise_func = add_random_noise,
+                             noise_func_args = list(sd = 1)) {
   if (is.null(gse)) {
     mat <- matrix(, p, n)
     var <- vector()
@@ -53,8 +62,8 @@ simulate_dataset <- function(n, p, gse = NULL, noise = 0) {
     result <- simulate_gse(n, p, gse)
   }
 
-  if(noise != 0){
-    result <- add_noise(n,p,result,noise)
+  if (noise != 0) {
+    result <- add_random_noise(result, sd)
   }
 
   return(result)
@@ -62,7 +71,7 @@ simulate_dataset <- function(n, p, gse = NULL, noise = 0) {
 
 simulate_gse <- function(n, p, gse = "GSE3821") {
   # gse <- "GSE133001", "GSE362" p#22
-  #gse <- "GSE133001"
+  # gse <- "GSE133001"
   temp_data <- get_dataset(gse)
   # feature name
   rnames <- sample(rownames(temp_data), p, replace = FALSE)
@@ -85,12 +94,12 @@ get_dataset <- function(gse = "GSE3821") {
   return(temp_dat)
 }
 
-#rbinom, rpois, runif
+# rbinom, rpois, runif
 
-add_noise <- function(n, p, gse, noise) {
-    nchanged <- round(n*p*noise/4)*2
-    temp_dataset <- gse
-    temp_dataset[1:nchanged,1] <- rnorm(nchanged,1,1)
-    temp_dataset[1,1:nchanged] <- rnorm(nchanged,1,1)
-    return(temp_dataset)
+normal_noise <- function(gse, sd) {
+  n1 <- nrow(gse)
+  m1 <- ncol(gse)
+  temp_dataset <- gse
+  temp_dataset <- temp_dataset + rnorm(n1*m1,0,sd)
+  return(temp_dataset)
 }
