@@ -36,8 +36,10 @@ library(GEOquery)
 simulate_dataset <- function(n,
                              p,
                              gse = NULL,
-                             noise_func = "normal",
-                             noise_func_args = list(sd = 1)) {
+                             noise_func = NULL,
+                             noise_func_args = list(sd = 1),
+                             bias_func = NULL,
+                             bias_func_args = list(n = 1, p = 1, s = 1)) {
   if (is.null(gse)) {
     mat <- matrix(, p, n)
     var <- vector()
@@ -52,55 +54,33 @@ simulate_dataset <- function(n,
   }
 
   if (!is.null(noise_func)) {
-    result <- add_random_noise(result, noise_func, noise_func_args)
+    result <- result + noise_func(n, p, noise_func_args)
+  }
+
+  if (!is.null(bias_func)) {
+    result <- result + bias_func(n, p, bias_func_args)
   }
 
   return(result)
 }
 
-simulate_gse <- function(n, p, gse = "GSE3821") {
-  # gse <- "GSE133001", "GSE362" p#22 gse <- "GSE133001"
-  temp_data <- get_dataset(gse)
-  # feature name
-  rnames <- sample(rownames(temp_data), p, replace = FALSE)
-  # sample name
-  cnames <- sample(colnames(temp_data), n, replace = FALSE)
-  # data value
-  temp_list <- sample(temp_data, n * p, replace = FALSE)
-  data <- data.frame(matrix(temp_list, nrow = p, ncol = n))
-  colnames(data) <- cnames
-  rownames(data) <- rnames
-  return(data)
+
+random_noise <- function(n, p, noise_func_args) {
+  return(rnorm(n * p, noise_func_args$sd))
 }
 
-get_dataset <- function(gse = "GSE3821") {
-  # gse <- "GSE133001", "GSE362" p#22
-  temp_base <- getGEO(gse, GSEMatrix = TRUE)
-  x <- temp_base[[1]]
-  temp_dat <- exprs(x)
-
-  return(temp_dat)
+uniform_noise <- function(n, p, noise_func_args) {
+  return(runif(n * p, noise_func_args$min, noise_func_args$max))
 }
 
-# rbinom, rpois, runif
+binomial_noise <- function(n, p, noise_func_args) {
+  return(rbinom(n * p, noise_func_args$size, noise_func_args$prob))
+}
 
-add_random_noise <- function(gse, noise_func, noise_func_args) {
-  n1 <- nrow(gse)
-  m1 <- ncol(gse)
-  tnum <- m1 * n1
-  temp_dataset <- gse
-  if (noise_func == "normal") {
-    temp_dataset <- temp_dataset + rnorm(tnum, 0, noise_func_args$sd)
-  } else if (noise_func == "poisson") {
-    temp_dataset <- temp_dataset + rpois(tnum, noise_func_args$lambda)
-  } else if (noise_func == "uniform") {
-    temp_dataset <- temp_dataset + runif(tnum, noise_func_args$min, noise_func_args$max)
-  } else if (noise_func == "binomial") {
-    temp_dataset <- temp_dataset + rbinom(tnum, noise_func_args$size, noise_func_args$prob)
-  } else if (noise_func == "exponential") {
-    temp_dataset <- temp_dataset + rexp(tnum, noise_func_args$rate)
-  }
+poisson_noise <- function(n, p, noise_func_args) {
+  return(rpois(n * p, noise_func_args$lambda))
+}
 
-
-  return(temp_dataset)
+exponential_noise <- function(n, p, noise_func_args) {
+  return(rexp(n * p, noise_func_args$rate))
 }

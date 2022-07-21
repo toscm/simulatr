@@ -16,18 +16,11 @@
 #' # to be done
 #'
 #'
-#' list_datasets <- function(platform = "GPL32170") {
-#'   dtset <- getGEO("GPL32170")
-#'   gse_id <- Meta(dtset)$series_id
-#'   info_gse <- getGEO(gse_id)
-#'   eData <- info_gse[[1]]
-#'   names(pData(eData))
-#'   return(info_gse)
-#' }
+#' 
 #'
 list_datasets <- function(pltfrm = "GPL95") {
-  dtset <- getGEO(pltfrm)
-  gse_id <- Meta(dtset)$series_id
+  dtset <- GEOquery::getGEO(pltfrm)
+  gse_id <- GEOquery::Meta(dtset)$series_id
   len <- length(gse_id)
   title <- array()
   type <- array()
@@ -35,9 +28,9 @@ list_datasets <- function(pltfrm = "GPL95") {
   data_row_count <- array()
 
   for (i in 1:len) {
-    get_gse_data <- getGEO(gse_id[i])
-    eData <- get_gse_data[[1]]
-    gse_data <- pData(eData)
+    get_gse_data <- GEOquery::getGEO(gse_id[i])
+    edata <- get_gse_data[[1]]
+    gse_data <- Biobase::pData(edata)
     title[i] <- gse_data$title
     type[i] <- gse_data$type
     platform_id[i] <- gse_data$platform_id

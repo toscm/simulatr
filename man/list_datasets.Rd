@@ -28,4 +28,14 @@ list_datasets(pltfrm = "GPL95")
 \examples{
 # to be done
 
+
+list_datasets <- function(platform = "GPL32170") {
+  dtset <- getGEO("GPL32170")
+  gse_id <- Meta(dtset)$series_id
+  info_gse <- getGEO(gse_id)
+  eData <- info_gse[[1]]
+  names(pData(eData))
+  return(info_gse)
+}
+
 }
