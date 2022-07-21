@@ -2,3 +2,4 @@
 
 export(constant_batch_effect)
 export(list_datasets)
+export(simulate_dataset)
