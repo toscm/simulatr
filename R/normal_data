@@ -1,13 +1,15 @@
-#' @export 
+#' @export
 #' @name normal_data
 #' @title Create normal data
 #' Gaussian or normal distribution
 #' @param n The number of samples
-#' @param p The number of features (e.g. genes) 
-#' @return A matrix of size n*p
+#' @param p The number of features (e.g. genes)
+#' @return A dataframe of size n*p
 #' @examples
-#' \dontrun{normal_data(10,10)}
-
+#' \dontrun{
+#' normal_data(10, 10)
+#' }
+#'
 normal_data <- function(n, p) {
     mat <- matrix(, p, n)
     var <- vector()
@@ -16,5 +18,5 @@ normal_data <- function(n, p) {
         mat[i, 1:n] <- var
         df <- data.frame(mat)
     }
-r   return(df)
+    return(df)
 }
