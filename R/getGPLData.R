@@ -1,18 +1,20 @@
 getGPLData <- function(gplnum) {
   # access gpl data
-  gpl <- getGEO(gplnum)
+  gpl <- GEOquery::getGEO(gplnum)
 
   # create matrix for data of the given platform
   a <- c(
-    Meta(gpl)$geo_accession,
-    Meta(gpl)$title,
-    Meta(gpl)$technology,
-    Meta(gpl)$organism,
-    Meta(gpl)$status
+    GEOquery::Meta(gpl)$geo_accession,
+    GEOquery::Meta(gpl)$title,
+    GEOquery::Meta(gpl)$technology,
+    GEOquery::Meta(gpl)$organism,
+    GEOquery::Meta(gpl)$status
   )
   matrix <- rbind(a)
-  colnames(matrix) <- c("GEO Accession", "Title", "Technology", "Organism", "Status")
-
-  # view matrix
+  colnames(matrix) <- c("GEO Accession",
+                        "Title",
+                        "Technology",
+                        "Organism",
+                        "Status")
   return(matrix)
 }

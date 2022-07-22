@@ -4,7 +4,7 @@
 #' Gaussian or normal distribution
 #' @param n The number of samples
 #' @param p The number of features (e.g. genes)
-#' @return A dataframe of size n*p
+#' @return A matrix of size n*p
 #' @examples
 #' \dontrun{
 #' normal_data(10, 10)
