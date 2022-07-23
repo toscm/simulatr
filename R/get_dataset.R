@@ -1,5 +1,5 @@
 #' @export
-#' @name
+#' @name get_dataset
 #' @title Extract dataset
 #' @description `simulate_gse()` returns a dataset for a given GSE number.
 #' @param gse The GSE number

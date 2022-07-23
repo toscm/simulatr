@@ -20,7 +20,8 @@ Either \code{gaussian},\code{binomial} or \code{cox}.}
 
 \item{cor}{Correlation strength within the data}
 
-\item{cortype}{Method to use for generating the correlation within the dataset.}
+\item{cortype}{Method to use for generating the correlation within
+the dataset.}
 
 \item{noise_func}{A function taking the matrix as
 first argument and other optional parameters as futher arguments}
@@ -49,10 +50,16 @@ cortype=1, noise=1, noisevar=1, bias=0, biastype=1 )
 1 ta gse te 1 ta gpl kintu 1 ta gpl e onekgula gse
 }
 \examples{
-\dontrun{ x <- simulate_dataset(n = 100, p = 1000, base =
-"HG-U133B")
+\dontrun{
+x <- simulate_dataset(
+  n = 100, p = 1000, base =
+    "HG-U133B"
+)
 # should return a matrix of size 100*1000 with genes measured by the
 # HG-U133B microarray as features
-x2 <- simulate(n, p, gse = matrix(rnorm(25), 5, 5), noise_func = unif_noise,
-  noise_func_args = list(min = 0, max = 1) ) } 
+x2 <- simulate(n, p,
+  gse = matrix(rnorm(25), 5, 5), noise_func = unif_noise,
+  noise_func_args = list(min = 0, max = 1)
+)
+}
 }
