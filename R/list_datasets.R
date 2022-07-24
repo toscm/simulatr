@@ -24,7 +24,6 @@ list_datasets <- function(platform) {
   len <- length(gse_id)
   title <- array()
   type <- array()
-  platform_id <- array()
   data_row_count <- array()
 
   for (i in 1:len) {
@@ -33,15 +32,13 @@ list_datasets <- function(platform) {
     gse_data <- Biobase::pData(edata)
     title[i] <- gse_data$title
     type[i] <- gse_data$type
-    platform_id[i] <- gse_data$platform_id
     data_row_count[i] <- gse_data$data_row_count
   }
   gse_dataframe <- data.frame(
     gse = gse_id,
-    title = title,
-    type = type,
-    platform = platform_id,
-    data_row_count = data_row_count
+    title <- title,
+    type <- type,
+    data_row_count <- data_row_count
   )
 
   return(gse_dataframe)

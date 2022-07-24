@@ -6,7 +6,7 @@
 #' @return A matrix extracted from GEOquery package
 #' @examples
 #' \dontrun{
-#' get_dataset("GPL96")
+#' get_gpl_data("GPL96")
 #' }
 #' @details
 #' gple is a GEO accession number. This can be found in NCBI website.

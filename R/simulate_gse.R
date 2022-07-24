@@ -9,7 +9,7 @@
 #' @return A matrix of size n*p
 #' @examples
 #' \dontrun{
-#' simuate_gse(50, 50, gse = "3821")
+#' simuate_gse(50, 50, gse = "GSE3821")
 #' }
 #' @details
 #' n and p define the dimension of the matrix to return.
@@ -18,7 +18,7 @@
 #' accession number (GSExxx).
 
 simulate_gse <- function(n = 10, p = 10, gse = "GSE3821") {
-    temp_data <- Biobase::get_dataset(gse)
+    temp_data <- simulatr::get_dataset(gse)
     # feature name
     rnames <- sample(rownames(temp_data), p, replace = FALSE)
     # sample name

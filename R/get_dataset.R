@@ -6,7 +6,7 @@
 #' @return A matrix extracted from GEOquery package
 #' @examples
 #' \dontrun{
-#' get_dataset(gse = "3821")
+#' get_dataset(gse = "GSE3821")
 #' }
 #' @details
 #' gse is a GEO accession number. This can be found in NCBI website.
@@ -17,7 +17,7 @@
 #' or analyses. Each Series record is assigned a unique and stable GEO
 #' accession number (GSExxx).
 
-get_dataset <- function(gse = "GSE3821") {
+get_dataset <- function(gse) {
     temp_base <- GEOquery::getGEO(gse, GSEMatrix = TRUE)
     x <- temp_base[[1]]
     temp_dat <- Biobase::exprs(x)

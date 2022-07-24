@@ -1,23 +1,24 @@
-#' @export 
-#' @name constant_batch_effect 
+#' @export
+#' @name constant_batch_effect
 #' @title Add constant batch effect to the
-#' simulated data. 
+#' simulated data.
 #' @description `constant_batch_effect()` returns a dataset of
 #' size n*p with b number of batches, p number of affected features affected by
-#' given value s. 
+#' given value s.
 #' @param n The number of samples
-#' @param p The number of features (e.g. genes) 
+#' @param p The number of features (e.g. genes)
 #' @param bias_func_args The arguments given by the user
 #' for the batch effect function
 #' @return A matrix of size n*p
 #' @examples
 #' \dontrun{constant_batch_effect(n=10,p=10,bias_func_args(
 #' list(b=c(1,1,1,2,2,2,3,3,4,4),f=4,s=c(0,1,1,2))))}
-#' \dontrun{constant_batch_effect(n=5,p=5,bias_func_args(b=2,f=4,s=c(0,1)))}
-#' \dontrun{constant_batch_effect(n=5,p=5,bias_func_args(b=2,f=4,s=1))}
-#' @details 
-#' n and p define the dimension of the matrix to return. 
-#' b defines the batches the samples belong to. f defines the number of 
+#' \dontrun{constant_batch_effect
+#' (n=5,p=5,bias_func_args=list(b=2,f=4,s=c(0,1)))}
+#' \dontrun{constant_batch_effect(n=5,p=5,bias_func_args=list(b=2,f=4,s=1))}
+#' @details
+#' n and p define the dimension of the matrix to return.
+#' b defines the batches the samples belong to. f defines the number of
 #' features will be affected. s defines how much each batch is effected.
 
 constant_batch_effect <- function(n, p, bias_func_args) {
