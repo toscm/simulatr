@@ -15,31 +15,30 @@
 #' ordered. A Series provides a focal point and description of the experiment as
 #' a whole. Series records may also contain tables describing
 #' extracted data, summary conclusions, or analyses. Each Series record is
-#'assigned a unique and stable GEO accession number (GSExxx). S
+#' assigned a unique and stable GEO accession number (GSExxx). S
 #' @examples list_datasets(platform = "GPL95")
 #'
 list_datasets <- function(platform) {
   dtset <- GEOquery::getGEO(platform)
   gse_id <- GEOquery::Meta(dtset)$series_id
-  len <- length(gse_id)
-  title <- array()
-  type <- array()
-  data_row_count <- array()
 
-  for (i in 1:len) {
-    get_gse_data <- GEOquery::getGEO(gse_id[i], GSEMatrix = TRUE)
-    edata <- get_gse_data[[1]]
-    gse_data <- Biobase::pData(edata)
-    title[i] <- gse_data$title
-    type[i] <- gse_data$type
-    data_row_count[i] <- gse_data$data_row_count
+
+  path <- system.file("inst", package = "simulatr")
+  files <- list.files(path = path, pattern = "series", full.names = TRUE)
+  library(data.table)
+  data <- do.call(rbind, lapply(
+    files,
+    function(x) read.csv(x, stringsAsFactors = FALSE)
+  ))
+  len <- length(data[, 1])
+  gse_info <- ""
+  for (x in gse_id) {
+    for (i in 1:len) {
+      if (x == data[i, 1]) {
+        gse_info <- rbind(gse_info, data[i, ])
+      }
+    }
   }
-  gse_dataframe <- data.frame(
-    gse = gse_id,
-    title <- title,
-    type <- type,
-    data_row_count <- data_row_count
-  )
 
-  return(gse_dataframe)
+  return(gse_info)
 }
