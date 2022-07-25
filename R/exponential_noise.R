@@ -15,5 +15,5 @@
 #' (in this case uniform). We can define vector of rates as
 #' noise_func_args$rate=1.
 exponential_noise <- function(n, p, noise_func_args) {
-  return(rexp(n * p, noise_func_args$rate))
+  return(stats::rexp(n * p, noise_func_args$rate))
 }

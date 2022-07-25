@@ -11,12 +11,6 @@
 #' }
 #'
 normal_data <- function(n, p) {
-    mat <- matrix(, p, n)
-    var <- vector()
-    for (i in 1:p) {
-        var <- rnorm(n)
-        mat[i, 1:n] <- var
-        df <- data.frame(mat)
-    }
+    df <- data.frame(matrix(rnorm(n * p), n, p))
     return(df)
 }

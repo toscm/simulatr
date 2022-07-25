@@ -4,7 +4,7 @@
 \alias{get_dataset}
 \title{Extract dataset}
 \usage{
-get_dataset(gse = "GSE3821")
+get_dataset(gse)
 }
 \arguments{
 \item{gse}{The GSE number}
@@ -26,6 +26,6 @@ accession number (GSExxx).
 }
 \examples{
 \dontrun{
-get_dataset(gse = "3821")
+get_dataset(gse = "GSE3821")
 }
 }

@@ -16,5 +16,5 @@
 #' noise_func_args$size=10 and probability of each trial as
 #' noise_func_args$prob=0.5
 binomial_noise <- function(n, p, noise_func_args) {
-  return(rbinom(n * p, noise_func_args$size, noise_func_args$prob))
+  return(stats::rbinom(n * p, noise_func_args$size, noise_func_args$prob))
 }

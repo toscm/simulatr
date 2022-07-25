@@ -26,6 +26,6 @@ have been submitted by multiple submitters.
 }
 \examples{
 \dontrun{
-get_dataset("GPL96")
+get_gpl_data("GPL96")
 }
 }

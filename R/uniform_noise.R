@@ -15,5 +15,5 @@
 #' (in this case uniform). We can define minimum and maximum
 #' of the function as noise_func_args$min=1 and noise_func_args$max=10
 uniform_noise <- function(n, p, noise_func_args) {
-  return(runif(n * p, noise_func_args$min, noise_func_args$max))
+  return(stats::runif(n * p, noise_func_args$min, noise_func_args$max))
 }

@@ -28,6 +28,6 @@ accession number (GSExxx).
 }
 \examples{
 \dontrun{
-simuate_gse(50, 50, gse = "3821")
+simuate_gse(50, 50, gse = "GSE3821")
 }
 }

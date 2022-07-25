@@ -16,7 +16,7 @@
 #' a whole. Series records may also contain tables describing
 #' extracted data, summary conclusions, or analyses. Each Series record is
 #' assigned a unique and stable GEO accession number (GSExxx). S
-#' @examples list_datasets(platform = "GPL95")
+#' @examples \dontrun{list_datasets(platform = "GPL95")}
 #'
 list_datasets <- function(platform) {
   dtset <- GEOquery::getGEO(platform)
@@ -25,13 +25,12 @@ list_datasets <- function(platform) {
 
   path <- system.file("inst", package = "simulatr")
   files <- list.files(path = path, pattern = "series", full.names = TRUE)
-  library(data.table)
-  data <- do.call(rbind, lapply(
+  data <- BiocGenerics::do.call(rbind, lapply(
     files,
-    function(x) read.csv(x, stringsAsFactors = FALSE)
+    function(x) utils::read.csv(x, stringsAsFactors = FALSE)
   ))
   len <- length(data[, 1])
-  gse_info <- ""
+  gse_info <- data.frame()
   for (x in gse_id) {
     for (i in 1:len) {
       if (x == data[i, 1]) {

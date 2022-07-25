@@ -21,19 +21,41 @@
 #' @param noisevar Variance of noise
 #' @param bias Amount of bias to simulate
 #' @param biastype Method to use for generating the bias. See below for details.
-#' @return A matrix of size n*p.
-#' @examples \dontrun{
-#' x <- simulate_dataset(
-#'   n = 100, p = 1000, base =
-#'     "HG-U133B"
-#' )
-#' # should return a matrix of size 100*1000 with genes measured by the
-#' # HG-U133B microarray as features
-#' x2 <- simulate(n, p,
-#'   gse = matrix(rnorm(25), 5, 5), noise_func = unif_noise,
-#'   noise_func_args = list(min = 0, max = 1)
+#' @return A dataframe of size n*p with simulated data.
+#' @examples
+#' \dontrun{
+#' simulate_dataset(n = 5, p = 5, data = data.frame(matrix(rnorm(6 * 6), 6, 6)))
+#' }
+#' \dontrun{
+#' simulate_dataset(10, 15)
+#' }
+#' \dontrun{
+#' simulate_dataset(n = 5, p = 8, gse = "GSE3821")
+#' }
+#' \dontrun{
+#' simulate_dataset(
+#'   n = 10,
+#'   p = 10,
+#'   noise_func = poisson_noise,
+#'   noise_func_args = list(lambda = 1)
 #' )
 #' }
+#' \dontrun{
+#' simulate_dataset(
+#'   n = 10,
+#'   p = 10,
+#'   gse = "GSE3821",
+#'   noise_func = uniform_noise,
+#'   noise_func_args = list(min = 0, max = 1),
+#'   bias_func = constant_batch_effect,
+#'   bias_func_args = list(
+#'     b = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4),
+#'     f = 4,
+#'     s = c(0, 1)
+#'   )
+#' )
+#' }
+#'
 #' @details simulate_dataset <-
 #'   function( n=3, p=4, beta=NULL, base="HG-U133B", family="gaussian", cor=0.5,
 #' cortype=1, noise=1, noisevar=1, bias=0, biastype=1 )
@@ -43,16 +65,20 @@
 
 library(GEOquery)
 
-simulate_dataset <- function(n,
-                             p,
-                             data = simulatr::normal_data,
+simulate_dataset <- function(n = 5,
+                             p = 5,
+                             data = simulatr::normal_data(n, p),
                              gse = NULL,
                              noise_func = NULL,
                              noise_func_args = list(sd = 1),
                              bias_func = NULL,
                              bias_func_args = list(n = 1, p = 1, s = 1)) {
   if (is.null(gse)) {
-    result <- data(n, p)
+    if (setequal(dim(data), c(n, p))) {
+      result <- data
+    } else {
+      result <- data[sample(nrow(data), n), sample(ncol(data), p)]
+    }
   } else {
     result <- simulatr::simulate_gse(n, p, gse)
   }

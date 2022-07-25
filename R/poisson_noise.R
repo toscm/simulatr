@@ -17,5 +17,5 @@
 #' (in this case uniform). We can define vector of non-negative means
 #' as noise_func_args$lambda=2.
 poisson_noise <- function(n, p, noise_func_args) {
-  return(rpois(n * p, noise_func_args$lambda))
+  return(stats::rpois(n * p, noise_func_args$lambda))
 }

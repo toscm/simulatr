@@ -46,8 +46,6 @@ A matrix of size n*p.
 simulate_dataset <-
 function( n=3, p=4, beta=NULL, base="HG-U133B", family="gaussian", cor=0.5,
 cortype=1, noise=1, noisevar=1, bias=0, biastype=1 )
-
-1 ta gse te 1 ta gpl kintu 1 ta gpl e onekgula gse
 }
 \examples{
 \dontrun{

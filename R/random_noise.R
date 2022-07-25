@@ -15,5 +15,5 @@
 #' (in this case gaussian/normal). We can define standard deviation
 #' of the function as noise_func_args$sd=0.5
 random_noise <- function(n, p, noise_func_args) {
-  return(rnorm(n * p, noise_func_args$sd))
+  return(stats::rnorm(n * p, noise_func_args$sd))
 }

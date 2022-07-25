@@ -28,7 +28,7 @@ get_gpl_data <- function(gplnum) {
     GEOquery::Meta(gpl)$organism,
     GEOquery::Meta(gpl)$status
   )
-  matrix <- rbind(a)
+  matrix <- BiocGenerics::rbind(a)
   colnames(matrix) <- c("GEO Accession",
                         "Title",
                         "Technology",
