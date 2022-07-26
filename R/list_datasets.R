@@ -23,7 +23,7 @@ list_datasets <- function(platform) {
   gse_id <- GEOquery::Meta(dtset)$series_id
 
 
-  path <- system.file("inst", package = "simulatr")
+  path <- system.file("", package = "simulatr")
   files <- list.files(path = path, pattern = "series", full.names = TRUE)
   data <- BiocGenerics::do.call(rbind, lapply(
     files,

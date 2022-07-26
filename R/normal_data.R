@@ -11,6 +11,6 @@
 #' }
 #'
 normal_data <- function(n, p) {
-    df <- data.frame(matrix(rnorm(n * p), n, p))
+    df <- data.frame(matrix(stats::rnorm(n * p), n, p))
     return(df)
 }

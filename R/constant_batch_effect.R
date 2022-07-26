@@ -11,7 +11,7 @@
 #' for the batch effect function
 #' @return A matrix of size n*p
 #' @examples
-#' \dontrun{constant_batch_effect(n=10,p=10,bias_func_args(
+#' \dontrun{constant_batch_effect(n=10,p=10,bias_func_args = (
 #' list(b=c(1,1,1,2,2,2,3,3,4,4),f=4,s=c(0,1,1,2))))}
 #' \dontrun{constant_batch_effect
 #' (n=5,p=5,bias_func_args=list(b=2,f=4,s=c(0,1)))}

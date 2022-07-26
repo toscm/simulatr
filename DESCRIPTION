@@ -20,7 +20,8 @@ biocViews:
 LazyDataCompression: xz
 Imports:
     GEOquery,
-    Biobase
+    Biobase,
+    BiocGenerics
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
