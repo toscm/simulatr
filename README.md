@@ -102,7 +102,7 @@ simulatr::simulate_dataset(n = 2, p = 3)
 
 #### With given data
 
-The users can provide a dataframe from which they want to derive the simulated data.
+The users can provide a dataframe from which they want to derive from the simulated data.
 
 ```R
 simulatr::simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
@@ -146,7 +146,7 @@ with gaussian, poisson, exponential, binomial and uniform distribution.
 
 ##### Gaussian/normal noise function
 
-Here argument sd is the standard deviation of the noise.
+Here argument *sd* is the standard deviation of the noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, p = 5, noise_func = random_noise, noise_func_args = list(sd = 1))
@@ -239,14 +239,14 @@ result :
 #### With given bias
 
 The users can choose the type of bias they want to add to their simulated data.
-The users can either provide their own bias (a (n,p) dimensional matrix) or
+The users can either provide their own bias (a (n, p) dimensional matrix) or
 choose from the given bias functions. If they choose the given bias function,
 they have to provide arguments for the chosen one. We provide bias function
-named*constant_batch_effect*.
+named *constant_batch_effect*.
 
 ##### Constant batch effect
 
-*n* and *p* denotes the number pf samples and features respectively. *b* denotes the batch each sample belongs to. Suppose the samples come from 3 different places. User can define which sample belongs to which place. If *b = c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f* denotes the number of features to be affected. If user chooses f=4, then 4 features will be randomly selected. *s* denotes how much each batch is affected. *s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1 respectively.
+*n* and *p* denotes the number pf samples and features respectively. *b* denotes the batch each sample belongs to. Suppose, the samples come from 3 different places. User can define which sample belongs to which place. If *b = c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f* denotes the number of features to be affected. If user chooses f=4, then 4 features will be randomly selected. *s* denotes how much each batch is affected. *s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1 respectively.
 
 Here is an example :
 
@@ -276,7 +276,7 @@ simulatr::simulate_dataset( n = 7,
 
 ````
 
-User can call a simplified version of constant_batch_effect. if users define b = 2, then samples will be randomly assigned to 2 different batches.
+User can call a simplified version of constant_batch_effect. If users define b = 2, then samples will be randomly assigned to 2 different batches.
 
 ```R
 simulatr::simulate_dataset( n = 5,
@@ -298,7 +298,7 @@ simulatr::simulate_dataset( n = 5,
 
 ```
 
-Here sample2 and sample5 belongs to batch1 and other samples belong to batch2. batch1 if affected by 1 wheras batch2 is affected by 2.feature1, feature3, feature4 and feature5 is affected.
+Here sample2 and sample5 belongs to batch1 and other samples belong to batch2. batch1 if affected by 1 wheras batch2 is affected by 2.   feature1, feature3, feature4 and feature5 is affected.
 
 In a more simplified version, all the batches will be affected by the same amount.
 
