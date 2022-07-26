@@ -2,12 +2,12 @@
 % Please edit documentation in R/simulate_dataset.R
 \name{simulate_dataset}
 \alias{simulate_dataset}
-\title{Simulate a Dataset}
+\title{Simulate a data set}
 \usage{
 simulate_dataset(
   n = 5,
   p = 5,
-  data = simulatr::normal_data(n, p),
+  base = simulatr::normal_data(n, p),
   gse = NULL,
   noise_func = NULL,
   noise_func_args = list(sd = 1),
@@ -20,48 +20,42 @@ simulate_dataset(
 
 \item{p}{The number of features.}
 
-\item{noise_func}{A function taking the matrix as
-first argument and other optional parameters as futher arguments}
+\item{base}{The base dataset to use as basis for the simulated data.}
+
+\item{noise_func}{A function taking the name of the noise function
+(e.g. random_noise, uniform_noise)}
 
 \item{noise_func_args}{Additional arguments to be passed to \code{noise_func}}
 
+\item{bias_func}{A function taking the name of the bias function
+(e.g. constant_batch_effect)}
+
+\item{bias_func_args}{Additional arguments to be passed to \code{bias_func}}
+
 \item{beta}{The model coefficients.}
 
-\item{y}{The results generated from the dataset and model coefficients.}
-
-\item{base}{The dataset to use as basis for the generation, e.g. HG-U133B for
-mRNA datasets measured with the Affymetrix HG-U133B microarray.}
+\item{y}{The results generated from thebaseset and model coefficients.}
 
 \item{family}{The type of model to use when generating the outcome variable.
 Either \code{gaussian},\code{binomial} or \code{cox}.}
 
-\item{cor}{Correlation strength within the data}
+\item{cor}{Correlation strength within thebase}
 
 \item{cortype}{Method to use for generating the correlation within
-the dataset.}
-
-\item{noise}{Amount of noise to add to each predictor}
-
-\item{noisevar}{Variance of noise}
-
-\item{bias}{Amount of bias to simulate}
-
-\item{biastype}{Method to use for generating the bias. See below for details.}
+thebaseset.}
 }
 \value{
-A dataframe of size n*p with simulated data.
+A data frame of size n*p with simulated data
 }
 \description{
-\code{simulate_dataset()} returns a dataset of size n*p
+\code{simulate_dataset()} returns a simulated dataset.
 }
 \details{
-simulate_dataset <-
-function( n=3, p=4, beta=NULL, base="HG-U133B", family="gaussian", cor=0.5,
-cortype=1, noise=1, noisevar=1, bias=0, biastype=1 )
+see Readme.md
 }
 \examples{
 \dontrun{
-simulate_dataset(n = 5, p = 5, data = data.frame(matrix(rnorm(6 * 6), 6, 6)))
+simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 }
 \dontrun{
 simulate_dataset(10, 15)

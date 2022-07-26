@@ -250,7 +250,7 @@ named*constant_batch_effect*.
 
 Here is an example :
 
-<div align="center" height = 500 width=400><img src="inst/Pictures /const_batch_effect1.jpg" /></div>
+<img src="inst/Pictures/const_batch_effect1.jpg" align = "center" width = 400/>
 <br>
 <br>
 
