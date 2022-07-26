@@ -66,11 +66,28 @@ install.packages("simulatr") # not yet available
 
 ### The simplest one
 
-This function returns a 5*5 dataframe with random data.
+Generate a 5*5 dataframe with random data.
 
 ```{r echo=TRUE}
-dataset <- simulatr::simulate_dataset()
+simulatr::simulate_dataset()
 
+```
+
+### With given dimension
+
+The users can define the dimension of the simulated data. n is the number of samples and p is the number of features (e.g. genes).
+
+```{r echo=TRUE}
+simulatr::simulate_dataset(n = 2, p = 3)
+
+```
+
+### With given data
+
+The users can provide a dataframe from which they want to derive the simulated data.
+
+```{r echo=TRUE}
+simulatr::simulate_dataset(n = 5, p = 5, data = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 ```
 
 ## Contributing
