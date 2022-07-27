@@ -8,3 +8,6 @@
 ^data-raw$
 ^INSTALLATION.md$
 ^LICENSE.md$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.RData$

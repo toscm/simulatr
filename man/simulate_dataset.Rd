@@ -2,20 +2,17 @@
 % Please edit documentation in R/simulate_dataset.R
 \name{simulate_dataset}
 \alias{simulate_dataset}
-\title{Simulate a Dataset}
+\title{Simulate a data set}
 \usage{
 simulate_dataset(
-  n,
-  p,
-  beta = NULL,
-  base = "HG-U133B",
-  family = "gaussian",
-  cor = 0.5,
-  cortype = 1,
-  noise = 1,
-  noisevar = 1,
-  bias = 0,
-  biastype = 1
+  n = 5,
+  p = 5,
+  base = simulatr::normal_data(n, p),
+  gse = NULL,
+  noise_func = NULL,
+  noise_func_args = list(sd = 1),
+  bias_func = NULL,
+  bias_func_args = list(n = 1, p = 1, s = 1)
 )
 }
 \arguments{
@@ -23,40 +20,62 @@ simulate_dataset(
 
 \item{p}{The number of features.}
 
-\item{beta}{The model coefficients.}
+\item{base}{The base dataset to use as basis for the simulated data.}
 
-\item{base}{The dataset to use as basis for the generation, e.g. HG-U133B
-for mRNA datasets measured with the Affymetrix HG-U133B microarray.}
+\item{gse}{GSE number of dataset that should be used as base. Cannot be used
+together with \code{base}.`}
 
-\item{family}{The type of model to use when generating the outcome variable.
-Either \code{gaussian}, \code{binomial} or \code{cox}.}
+\item{noise_func}{A function taking the name of the noise function
+(e.g. random_noise, uniform_noise)}
 
-\item{cor}{Correlation strength within the data}
+\item{noise_func_args}{Additional arguments to be passed to \code{noise_func}}
 
-\item{cortype}{Method to use for generating the correlation within the
-dataset. See below for details.}
+\item{bias_func}{A function taking the name of the bias function
+(e.g. constant_batch_effect)}
 
-\item{noise}{Amount of noise to add to each predictor}
-
-\item{noisevar}{Variance of noise}
-
-\item{bias}{Amount of bias to simulate}
-
-\item{biastype}{Method to use for generating the bias. See below for details.}
+\item{bias_func_args}{Additional arguments to be passed to \code{bias_func}}
 }
 \value{
-A matrix of size n*p.
+A data frame of size n*p with simulated data
 }
 \description{
-\code{simulate_dataset()} returns a dataset of size n*p
+\code{simulate_dataset()} returns a simulated dataset.
 }
 \details{
-to be done
+see Readme.md
 }
 \examples{
 \dontrun{
-x <- simulate_dataset(n=100, p=1000, base="HG-U133B")
-# should return a matrix of size 100*1000 with genes measured by the
-# HG-U133B microarray as features
+simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 }
+\dontrun{
+simulate_dataset(10, 15)
+}
+\dontrun{
+simulate_dataset(n = 5, p = 8, gse = "GSE3821")
+}
+\dontrun{
+simulate_dataset(
+  n = 10,
+  p = 10,
+  noise_func = poisson_noise,
+  noise_func_args = list(lambda = 1)
+)
+}
+\dontrun{
+simulate_dataset(
+  n = 10,
+  p = 10,
+  gse = "GSE3821",
+  noise_func = uniform_noise,
+  noise_func_args = list(min = 0, max = 1),
+  bias_func = constant_batch_effect,
+  bias_func_args = list(
+    b = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4),
+    f = 4,
+    s = c(0, 1)
+  )
+)
+}
+
 }

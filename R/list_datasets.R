@@ -3,20 +3,41 @@
 #' @title List Datasets useable as Base Datasets for Simulations
 #' @description `lists_datasets()` returns a list of datasets that can be passed
 #' to `simulate_dataset` as basis for the simulation.
-#' @param platform e.g. HG-U133B for mRNA datasets measured with the Affymetrix
-#' HG-U133B microarray.
-#' @param source where to search for datasets.
-#' @return A named list of datasets, where each dataset is represented by a list
-#' with the following elements:
-#' platform: platform specified as parameter
-#' n: number of observations in the dataset
-#' p: number of features in the dataset
-#' download: function to actually download the dataset
-#' @examples
-#' # to be done
-#' @details to be done
-list_datasets <- function(platform='GPL32170', source="GEOquery") {
-  # retrieve all datasets measured with <platform> from GEOquery:
-  x <- list() # this is just a placeholder for the real colde
-  return(x)
+#' @param platform The platform number
+#' @return A dataframe with information about series which used a specific
+#' platform
+#' @details A Platform record describes the list of elements on the array (e.g.,
+#' cDNAs, oligonucleotide, probesets, ORFs, antibodies) or the list of elements
+#' that may be detected and quantified in that experiment (e.g., SAGE tags,
+#' peptides). Each Platform record is assigned a unique and stable GEO accession
+#' number (GPLxxx). A Series record defines a set of related Samples considered
+#' to be part of a group, how the Samples are related, and if and how they are
+#' ordered. A Series provides a focal point and description of the experiment as
+#' a whole. Series records may also contain tables describing
+#' extracted data, summary conclusions, or analyses. Each Series record is
+#' assigned a unique and stable GEO accession number (GSExxx). S
+#' @examples \dontrun{list_datasets(platform = "GPL95")}
+#'
+list_datasets <- function(platform) {
+  dtset <- GEOquery::getGEO(platform)
+  gse_id <- GEOquery::Meta(dtset)$series_id
+
+
+  path <- system.file("", package = "simulatr")
+  files <- list.files(path = path, pattern = "series", full.names = TRUE)
+  data <- BiocGenerics::do.call(rbind, lapply(
+    files,
+    function(x) utils::read.csv(x, stringsAsFactors = FALSE)
+  ))
+  len <- length(data[, 1])
+  gse_info <- data.frame()
+  for (x in gse_id) {
+    for (i in 1:len) {
+      if (x == data[i, 1]) {
+        gse_info <- rbind(gse_info, data[i, ])
+      }
+    }
+  }
+
+  return(gse_info)
 }
