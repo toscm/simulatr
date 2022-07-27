@@ -5,14 +5,9 @@
 #' `simulate_dataset()` returns a simulated dataset.
 #' @param n The number of samples.
 #' @param p The number of features.
-#' @param beta The model coefficients.
-#' @param y The results generated from thebaseset and model coefficients.
 #' @param base The base dataset to use as basis for the simulated data.
-#' @param family The type of model to use when generating the outcome variable.
-#' Either `gaussian`,`binomial` or `cox`.
-#' @param cor Correlation strength within thebase
-#' @param cortype Method to use for generating the correlation within
-#' thebaseset.
+#' @param gse GSE number of dataset that should be used as base. Cannot be used
+#' together with `base`.`
 #' @param noise_func A function taking the name of the noise function
 #' (e.g. random_noise, uniform_noise)
 #' @param noise_func_args Additional arguments to be passed to `noise_func`
