@@ -22,6 +22,9 @@ simulate_dataset(
 
 \item{base}{The base dataset to use as basis for the simulated data.}
 
+\item{gse}{GSE number of dataset that should be used as base. Cannot be used
+together with \code{base}.`}
+
 \item{noise_func}{A function taking the name of the noise function
 (e.g. random_noise, uniform_noise)}
 
@@ -31,18 +34,6 @@ simulate_dataset(
 (e.g. constant_batch_effect)}
 
 \item{bias_func_args}{Additional arguments to be passed to \code{bias_func}}
-
-\item{beta}{The model coefficients.}
-
-\item{y}{The results generated from thebaseset and model coefficients.}
-
-\item{family}{The type of model to use when generating the outcome variable.
-Either \code{gaussian},\code{binomial} or \code{cox}.}
-
-\item{cor}{Correlation strength within thebase}
-
-\item{cortype}{Method to use for generating the correlation within
-thebaseset.}
 }
 \value{
 A data frame of size n*p with simulated data
