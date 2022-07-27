@@ -10,20 +10,19 @@ An R package for simulating omics datasets either from scratch or from existing,
 
 ## Table of Contents
 
-- [simulatr <img
-             src="inst/logo/simulatr.png"
-             align="right"
-             width="100" />](#simulatr-)
-  - [Table of Contents](#table-of-contents)
-  - [Purpose](#purpose)
-  - [Next Steps](#next-steps)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [The simplest one](#the-simplest-one)
-  - [Contributing](#contributing)
-  - [Related Work](#related-work)
-    - [Summary](#summary)
-    - [Links](#links)
+- [Table of Contents](#table-of-contents)
+- [Purpose](#purpose)
+- [Next Steps](#next-steps)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Simulate a dataset](#simulate-a-dataset)
+  - [List of the platforms](#list-of-the-platforms)
+  - [Retrieve data for a given platform](#retrieve-data-for-a-given-platform)
+  - [List of the datasets](#list-of-the-datasets)
+- [Contributing](#contributing)
+- [Related Work](#related-work)
+  - [Summary](#summary)
+  - [Links](#links)
 
 ## Purpose
 
