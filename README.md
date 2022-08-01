@@ -35,6 +35,7 @@ Evaluation of statistical methods is best done with datasets where all relevant 
 - [ ] Fix simplest bias example in README
 - [ ] Replace `*.csv` files with one big `.rda` or `.rds` file (see function `saveRDS`)
 - [ ] Read `*.rds` file only once  (see e.g. package `memoise`)
+- [ ] Add a changelog to the package (from now on, every pull request should increase the package version. See <https://keepachangelog.com/en/1.0.0/> and <https://semver.org/>.
 - [ ] Make `list_datasets` return all available Metadata (not just title title, type, platform_id and data_row_count)
 - [ ] Document package usage either in a [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
 - [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for details on how to write testcases for R functions.
