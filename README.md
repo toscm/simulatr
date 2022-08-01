@@ -30,25 +30,17 @@ Evaluation of statistical methods is best done with datasets where all relevant 
 
 ## Next Steps
 
-- [x] Either copy the package to your own private Github Account and make the repo public as soon as you want to upload the package to CRAN or make it public right now (recommended).
-- [x] Do a literature research of existing packages for data simulation and their features. Write down the results in this README under section [Related Work](#related-work).
-- [x] Implement the function `list_datasets` for listing potential base datasets for the simulation.
-- [x] Implement the function `get_dataset` to do the actual simulation.
-  - [ ] Use case 1: user specifies a base dataset measured with only one single platform and no platform: take all samples
-  - [ ] Use case 2: user specifies a base dataset measured with multiple platforms and no platform: throw an error using `stop(<some useful message>)`
-  - [ ] Use case 3: user specifies a base dataset measured with multiple platforms and a platform: use the samples measured with the specified platform
-  - [ ] Use case 4: user specifies only a platform: download all samples for that platform (will require one more helper function `get_samples()` or similar.
-  - [ ] Use case 5: no base dataset and no platform specfied
-  - [ ] Implement `noise_func` / `noise_func_args` arguments: start with noise drawn from a normal distribution or a uniform distribution
-  - [ ] Implement `bias_func` / `bias_func_args` arguments: first function name should be `constant_batch_effect` and it should take the number `n` of batches, the number `p` of affected features and the the value `s` given the batch-effect-strength.
-  - [ ] Implement `cor` / `cortype` argument: be creative
-- [ ] Implement the function `list_dataset` taking the output of `get_dataset` as argument.
-- [x] Get the coverage check to pass.
-- [ ] Make sure all functions are thoroughly documented. See <https://r-pkgs.org/man.html> for details on how to write documentation for R functions.
-- [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for details on how to write testcases for R functions.
-- [ ] Document package usage either in a [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
-- [ ] Improve literature research results.
+- [ ] Remove `gse` parameter
+- [ ] Fix indentation of examples in README
+- [ ] Fix simplest bias example in README
+- [ ] Replace `*.csv` files with one big `.rda` or `.rds` file (see function `saveRDS`)
+- [ ] Read `*.rds` file only once  (see e.g. package `memoise`)
 - [ ] Make `list_datasets` return all available Metadata (not just title title, type, platform_id and data_row_count)
+- [ ] Document package usage either in a [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
+- [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for details on how to write testcases for R functions.
+- [ ] Implement `cor_func` / `cor_func_args` argument: be creative
+- [ ] Make sure all functions are thoroughly documented. See <https://r-pkgs.org/man.html> for details on how to write documentation for R functions.
+- [ ] Improve literature research results.
 - [ ] Publish the package to CRAN.
 - [ ] Optional: speed up `list_datasets` by retrieving the metadata without actually downloading the expression matrix (maybe by querying the NCBI website)
 
@@ -282,9 +274,7 @@ simulatr::simulate_dataset( n = 5,
                             p = 5,
                             base = data.frame(matrix(0, 5, 5)),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2,
-                            f=4,
-                            s=c(1,2))))
+                            bias_func_args = (list(b=2, f=4, s=c(1,2))))
 
 # result :
 
@@ -302,13 +292,11 @@ Here sample2 and sample5 belongs to batch1 and other samples belong to batch2. b
 In a more simplified version, all the batches will be affected by the same amount.
 
 ```R
-simulatr::simulate_dataset( n = 5,
-                            p = 5,
-                            base = data.frame(matrix(0, 5, 5)),
-                            bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2,
-                            f=2,
-                            s=1)))
+simulatr::simulate_dataset(n = 5,
+                           p = 5,
+                           base = data.frame(matrix(0, 5, 5)),
+                           bias_func = constant_batch_effect,
+                           bias_func_args = (list(b=2, f=2, s=1)))
 
 # result :
 
