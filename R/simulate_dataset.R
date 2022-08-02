@@ -21,9 +21,6 @@
 #' simulate_dataset(10, 15)
 #' }
 #' \dontrun{
-#' simulate_dataset(n = 5, p = 8, gse = "GSE3821")
-#' }
-#' \dontrun{
 #' simulate_dataset(
 #'   n = 10,
 #'   p = 10,

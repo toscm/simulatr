@@ -15,7 +15,7 @@ test_that("function works", {
     bias_func_args = list(
       b = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4),
       f = 4,
-      s = c(0, 1)
+      s = c(0, 1, 2)
     )
   )
 
