@@ -11,9 +11,6 @@
 #' }
 #'
 list_platforms <- function() {
-  # file_path <- system.file("platform.csv", package = "simulatr")
-  # platform_data <- utils::read.csv(file_path)
-  # saveRDS(platform_data, file = "platform.rds")
   platform_data <- rd()
 
   return(platform_data)

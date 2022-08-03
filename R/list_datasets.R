@@ -22,13 +22,6 @@
 list_datasets <- function(platform) {
   dtset <- GEOquery::getGEO(platform)
   gse_id <- GEOquery::Meta(dtset)$series_id
-  # path <- system.file("", package = "simulatr")
-  # files <- list.files(path = path, pattern = "series", full.names = TRUE)
-  # data <- BiocGenerics::do.call(rbind, lapply(
-  #   files,
-  #   function(x) utils::read.csv(x, stringsAsFactors = FALSE)
-  # ))
-  # saveRDS(data, file = "series.rds")
   data <- rd_sf()
   len <- length(data[, 1])
   gse_info <- data.frame()
