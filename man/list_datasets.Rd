@@ -40,8 +40,12 @@ assigned a unique and stable GEO accession number (GSExxx). S
 Provides information about all the platforms
 }
 \examples{
-\dontrun{list_datasets(platform = "GPL95")}
+\dontrun{
+list_datasets(platform = "GPL95")
+}
 
-\dontrun{list_platforms()}
+\dontrun{
+list_platforms()
+}
 
 }

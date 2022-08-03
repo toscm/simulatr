@@ -6,11 +6,21 @@
 #' @param platform The platform number
 #' @return list of all platforms along with information about them
 #' @details Provides information about all the platforms
-#' @examples \dontrun{list_platforms()}
+#' @examples \dontrun{
+#' list_platforms()
+#' }
 #'
 list_platforms <- function() {
-  file_path <- system.file("platform.csv", package = "simulatr")
-  platform_data <- utils::read.csv(file_path)
+  # file_path <- system.file("platform.csv", package = "simulatr")
+  # platform_data <- utils::read.csv(file_path)
+  # saveRDS(platform_data, file = "platform.rds")
+  platform_data <- rd()
 
   return(platform_data)
 }
+
+read_data <- function() {
+  readRDS(file = system.file("platform.rds", package = "simulatr"))
+}
+
+rd <- memoise::memoise(read_data)
