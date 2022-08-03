@@ -43,7 +43,6 @@ Provides information about all the platforms
 \dontrun{
 list_datasets(platform = "GPL95")
 }
-
 \dontrun{
 list_platforms()
 }
