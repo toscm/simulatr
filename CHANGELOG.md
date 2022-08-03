@@ -22,3 +22,20 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
 ## [0.1.0] - 2022-08-05
 
 - `Added`: Initial Version.
+
+## [0.1.1] - 2022-08-03
+
+### Added
+
+- dummy_func to make sure R CMD check recognizes that we're actually using the
+  memoise
+
+### Changed
+
+- .csv files to .rds files
+- simplest version of constant_batch_effect
+- Readme.md
+
+### Deleted
+
+- 'gse' parameter from simulate_dataset
