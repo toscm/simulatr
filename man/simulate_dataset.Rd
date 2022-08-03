@@ -8,7 +8,6 @@ simulate_dataset(
   n = 5,
   p = 5,
   base = simulatr::normal_data(n, p),
-  gse = NULL,
   noise_func = NULL,
   noise_func_args = list(sd = 1),
   bias_func = NULL,
@@ -21,9 +20,6 @@ simulate_dataset(
 \item{p}{The number of features.}
 
 \item{base}{The base dataset to use as basis for the simulated data.}
-
-\item{gse}{GSE number of dataset that should be used as base. Cannot be used
-together with \code{base}.`}
 
 \item{noise_func}{A function taking the name of the noise function
 (e.g. random_noise, uniform_noise)}
@@ -50,9 +46,6 @@ simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 }
 \dontrun{
 simulate_dataset(10, 15)
-}
-\dontrun{
-simulate_dataset(n = 5, p = 8, gse = "GSE3821")
 }
 \dontrun{
 simulate_dataset(

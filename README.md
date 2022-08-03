@@ -2,11 +2,14 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/toscm/simulatr/workflows/R-CMD-check/badge.svg)](https://github.com/toscm/simulatr/actions)
-[![Codecov test coverage](https://codecov.io/gh/toscm/simulatr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/toscm/simulatr?branch=main)
+[![Codecov test
+coverage](https://codecov.io/gh/toscm/simulatr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/toscm/simulatr?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/simulatr)](https://cran.r-project.org/package=simulatr)
 <!-- badges: end -->
 
-An R package for simulating omics datasets either from scratch or from existing, publicly available datasets. Configurable parameters are correlation structure, biases, noise and the relationship between predictors and outcome variable.
+An R package for simulating omics datasets either from scratch or from existing,
+publicly available datasets. Configurable parameters are correlation structure,
+biases, noise and the relationship between predictors and outcome variable.
 
 ## Table of Contents
 
@@ -19,31 +22,47 @@ An R package for simulating omics datasets either from scratch or from existing,
   - [List of the platforms](#list-of-the-platforms)
   - [Retrieve data for a given platform](#retrieve-data-for-a-given-platform)
   - [List of the datasets](#list-of-the-datasets)
-- [Contributing](#contributing)
 - [Related Work](#related-work)
   - [Summary](#summary)
   - [Links](#links)
 
 ## Purpose
 
-Evaluation of statistical methods is best done with datasets where all relevant parameters can be controlled. Parameters of interest are e.g. the number of observations/features, the correlation structure between samples/features, the relationship between features and outcome and the amount of noise and/or biases within the data. As this is rarely possible with real-world datasets, it often makes sense to not only evaluate methods on real-world datasets, but also on simulated datasets. The goal of this package is therefore, to make simulation of such datasets as easy as possible.
+Evaluation of statistical methods is best done with datasets where all relevant
+parameters can be controlled. Parameters of interest are e.g. the number of
+observations/features, the correlation structure between samples/features, the
+relationship between features and outcome and the amount of noise and/or biases
+within the data. As this is rarely possible with real-world datasets, it often
+makes sense to not only evaluate methods on real-world datasets, but also on
+simulated datasets. The goal of this package is therefore, to make simulation of
+such datasets as easy as possible.
 
 ## Next Steps
 
 - [ ] Remove `gse` parameter
 - [ ] Fix indentation of examples in README
 - [ ] Fix simplest bias example in README
-- [ ] Replace `*.csv` files with one big `.rda` or `.rds` file (see function `saveRDS`)
+- [ ] Replace `*.csv` files with one big `.rda` or `.rds` file (see function
+  `saveRDS`)
 - [ ] Read `*.rds` file only once  (see e.g. package `memoise`)
-- [ ] Add a changelog to the package (from now on, every pull request should increase the package version. See <https://keepachangelog.com/en/1.0.0/> and <https://semver.org/>.
-- [ ] Make `list_datasets` return all available Metadata (not just title title, type, platform_id and data_row_count)
-- [ ] Document package usage either in a [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
-- [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for details on how to write testcases for R functions.
+- [ ] Add a changelog to the package (from now on, every pull request should
+  increase the package version. See <https://keepachangelog.com/en/1.0.0/> and
+  <https://semver.org/>.
+- [ ] Make `list_datasets` return all available Metadata (not just title title,
+  type, platform_id and data_row_count)
+- [ ] Document package usage either in a
+  [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
+- [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for
+  details on how to write testcases for R functions.
 - [ ] Implement `cor_func` / `cor_func_args` argument: be creative
-- [ ] Make sure all functions are thoroughly documented. See <https://r-pkgs.org/man.html> for details on how to write documentation for R functions.
+- [ ] Make sure all functions are thoroughly documented. See
+  <https://r-pkgs.org/man.html> for details on how to write documentation for R
+  functions.
 - [ ] Improve literature research results.
 - [ ] Publish the package to CRAN.
-- [ ] Optional: speed up `list_datasets` by retrieving the metadata without actually downloading the expression matrix (maybe by querying the NCBI website)
+- [ ] Optional: speed up `list_datasets` by retrieving the metadata without
+  actually downloading the expression matrix (maybe by querying the NCBI
+  website)
 
 ## Installation
 
@@ -94,10 +113,13 @@ simulatr::simulate_dataset(n = 2, p = 3)
 
 #### With given data
 
-The users can provide a dataframe from which they want to derive from the simulated data.
+The users can provide a dataframe from which they want to derive from the
+simulated data.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           base = data.frame(matrix(stats::rnorm(6 * 6), 6, 6)))
 
 # result :
 
@@ -112,10 +134,13 @@ simulatr::simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 
 
 #### With given gse
 
-The user can define the *gse* number. In that case, user will get simulated data related to that specific *gse* number.
+The user can use simulate_gse function as base. In that case, user will get
+simulated data related to that specific *gse* number.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, gse = "GSE3821")
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           base = simulatr::simulate_gse(n=10,p=10,"GSE3821"))
 
 # result :
 
@@ -141,7 +166,10 @@ with gaussian, poisson, exponential, binomial and uniform distribution.
 Here argument *sd* is the standard deviation of the noise.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, noise_func = random_noise, noise_func_args = list(sd = 1))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           noise_func = random_noise, 
+                           noise_func_args = list(sd = 1))
 
 # result :
 
@@ -159,7 +187,10 @@ simulatr::simulate_dataset(n = 5, p = 5, noise_func = random_noise, noise_func_a
 Here *lambda* is the argument of poisson noise.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, noise_func = poisson_noise, noise_func_args = list(lambda = 1))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           noise_func = poisson_noise, 
+                           noise_func_args = list(lambda = 1))
 
 # result :
 
@@ -174,11 +205,14 @@ simulatr::simulate_dataset(n = 5, p = 5, noise_func = poisson_noise, noise_func_
 
 ##### Uniform noise
 
-Here *min* and *max* are the function arguments of uniform noise. *min* and *max* define
-the range of the noise.
+Here *min* and *max* are the function arguments of uniform noise. *min* and
+*max* define the range of the noise.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, noise_func = uniform_noise, noise_func_args = list(min = 1, max = 2))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           noise_func = uniform_noise, 
+                           noise_func_args = list(min = 1, max = 2))
 
 # result :
 
@@ -193,11 +227,14 @@ simulatr::simulate_dataset(n = 5, p = 5, noise_func = uniform_noise, noise_func_
 
 ##### Binomial noise
 
-Here *size* and *prob* are the function arguments. *size* defines the number of trials
-and *prob* defines the probability of success on each trial.
+Here *size* and *prob* are the function arguments. *size* defines the number of
+trials and *prob* defines the probability of success on each trial.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, noise_func = binomial_noise, noise_func_args = list(size=10, prob=0.5))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           noise_func = binomial_noise, 
+                           noise_func_args = list(size=10, prob=0.5))
 
 # result :
 
@@ -215,7 +252,10 @@ simulatr::simulate_dataset(n = 5, p = 5, noise_func = binomial_noise, noise_func
 Here *rate* is the function argument.
 
 ```R
-simulatr::simulate_dataset(n = 5, p = 5, noise_func = exponential_noise, noise_func_args = list(rate = 1))
+simulatr::simulate_dataset(n = 5, 
+                           p = 5, 
+                           noise_func = exponential_noise, 
+                           noise_func_args = list(rate = 1))
 
 result :
 
@@ -238,7 +278,15 @@ named *constant_batch_effect*.
 
 ##### Constant batch effect
 
-*n* and *p* denotes the number pf samples and features respectively. *b* denotes the batch each sample belongs to. Suppose, the samples come from 3 different places. User can define which sample belongs to which place. If *b = c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f* denotes the number of features to be affected. If user chooses f=4, then 4 features will be randomly selected. *s* denotes how much each batch is affected. *s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1 respectively.
+*n* and *p* denotes the number of samples and features respectively. *b* denotes
+the batch each sample belongs to. Suppose, the samples come from 3 different
+places. User can define which sample belongs to which place. If *b =
+c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to
+batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f*
+denotes the number of features to be affected. If user chooses f=4, then 4
+features will be randomly selected. *s* denotes how much each batch is affected.
+*s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1
+respectively.
 
 Here is an example :
 
@@ -268,7 +316,8 @@ simulatr::simulate_dataset( n = 7,
 
 ````
 
-User can call a simplified version of constant_batch_effect. If users define b = 2, then samples will be randomly assigned to 2 different batches.
+User can call a simplified version of constant_batch_effect. If users define b =
+2, then samples will be randomly assigned to 2 different batches.
 
 ```R
 simulatr::simulate_dataset( n = 5,
@@ -288,9 +337,12 @@ simulatr::simulate_dataset( n = 5,
 
 ```
 
-Here sample2 and sample5 belongs to batch1 and other samples belong to batch2. batch1 if affected by 1 wheras batch2 is affected by 2.   feature1, feature3, feature4 and feature5 is affected.
+Here sample2 and sample5 belongs to batch1 and other samples belong to batch2.
+batch1 if affected by 1 wheras batch2 is affected by 2.   feature1, feature3,
+feature4 and feature5 is affected.
 
-In a more simplified version, all the batches will be affected by the same amount.
+In a more simplified version, if first batch is affected by 0, then user can
+skip that.
 
 ```R
 simulatr::simulate_dataset(n = 5,
@@ -301,16 +353,17 @@ simulatr::simulate_dataset(n = 5,
 
 # result :
 
-#  X1 X2 X3 X4 X5
-# 1  0  0  0  1  1
-# 2  0  0  0  1  1
-# 3  0  0  0  1  1
-# 4  0  0  0  1  1
-# 5  0  0  0  1  1
+#   X1 X2 X3 X4 X5
+# 1  0  0  0  0  0
+# 2  1  1  0  0  0
+# 3  1  1  0  0  0
+# 4  0  0  0  0  0
+# 5  0  0  0  0  0
 
 ```
 
-Here feature4 and feature5 are affected. All the batches are affected by the same number.
+Here feature4 and feature5 are affected. All the batches are affected by the
+same number.
 
 #### Some more examples
 
@@ -323,14 +376,18 @@ utils::head(simulatr::list_platforms(),3)
 
 # A part of the result that can be retrieved by this function :
 
-# Accession                                                                     Title                 Technology
-# 1  GPL25897                             Illumina HiSeq 4000 (Fagopyrum hailuogouense) high-throughput sequencing
-# 2  GPL25881 Qiagen Mouse Inflammatory Response and Autoimmunity PCR Array (PAMM-077Z)                     RT-PCR
-# 3  GPL25892                                               HiSeq X Ten (Rattus rattus) high-throughput sequencing
-#                  Taxonomy Data.Rows Samples.Count Series.Count           Contact Release.Date
-# 1 Fagopyrum hailuogouense         0             6            1               GEO Dec 05, 2018
-# 2            Mus musculus        96            34            1 Patricia Silveyra Dec 04, 2018
-# 3           Rattus rattus         0             8            1               GEO Dec 04, 2018
+# Accession                                                                     Title    
+# 1  GPL25897                             Illumina HiSeq 4000 (Fagopyrum hailuogouense)    
+# 2  GPL25881 Qiagen Mouse Inflammatory Response and Autoimmunity PCR Array (PAMM-077Z)    
+# 3  GPL25892                                               HiSeq X Ten (Rattus rattus)    
+#                   Technology                Taxonomy Data.Rows Samples.Count Series.Count
+# 1 high-throughput sequencing Fagopyrum hailuogouense         0             6            1
+# 2                     RT-PCR            Mus musculus        96            34            1
+# 3 high-throughput sequencing           Rattus rattus         0             8            1
+#             Contact Release.Date
+# 1               GEO Dec 05, 2018
+# 2 Patricia Silveyra Dec 04, 2018
+# 3               GEO Dec 04, 2018
 
 ```
 
@@ -341,23 +398,24 @@ User can retrieve data for a specific platform (e.g. GPL97)
 ```R
 simulatr::get_gpl_data("GPL96")
 
-# result :
-#
-# GEO Accession Title                                            Technology                Organism       Status
-# a "GPL96"       "[HG-U133A] Affymetrix Human Genome U133A Array" "in situ oligonucleotide" "Homo sapiens" "Public on Mar 11 2002"  
+# # result :
+#  GEO Accession Title                                            Technology                Organism
+# a "GPL96"       "[HG-U133A] Affymetrix Human Genome U133A Array" "in situ oligonucleotide" "Homo sapiens"   
+#   Status
+# a "Public on Mar 11 2002"
 
 ```
 
 ### List of the datasets
 
-Information about all gse (e.g. GSE465) related to a specific platform (e.g. GPL95)
+Information about all gse (e.g. GSE465) related to a specific platform (e.g.
+GPL95)
 
 ```R
 simulatr::list_datasets(platform = "GPL95")
 
-# result :
-
-#        Accession                                                                                      Title
+# # result :
+#       Accession                                                                                      Title
 # 20365     GSE465                                           Expression profiling in the muscular dystrophies
 # 151738    GSE762                                                                            CCFAlmasan_CaP1
 # 32434     GSE803                                                     GeneNote-Gene Normal tissue Expression
@@ -366,35 +424,52 @@ simulatr::list_datasets(platform = "GPL95")
 # 20322    GSE2508                                         Expression profiling in adipocytes of obese humans
 # 164705   GSE5949       Comparison between cell lines from 9 different cancer tissue (NCI-60) (U95 platform)
 # 16539   GSE51625                          Expression data from human abdominal, subcutaneous adipose tissue
-#                          Series.Type     Taxonomy Sample.Count                                        Datasets Supplementary.Types
-# 20365  Expression profiling by array Homo sapiens           57              GDS214;GDS262;GDS264;GDS265;GDS270                 CEL
-# 151738 Expression profiling by array Homo sapiens           25              GDS719;GDS720;GDS721;GDS722;GDS723
-# 32434  Expression profiling by array Homo sapiens          120              GDS422;GDS423;GDS424;GDS425;GDS426
-# 74830  Expression profiling by array Homo sapiens           86                     GDS609;GDS610;GDS611;GDS612         CEL;EXP;RPT
+#                          Series.Type     Taxonomy Sample.Count
+# 20365  Expression profiling by array Homo sapiens           57
+# 151738 Expression profiling by array Homo sapiens           25
+# 32434  Expression profiling by array Homo sapiens          120
+# 74830  Expression profiling by array Homo sapiens           86
 # 147372 Expression profiling by array Homo sapiens           75
-# 20322  Expression profiling by array Homo sapiens          195 GDS1495;GDS1496;GDS1497;GDS1498;GDS3601;GDS3602
-# 164705 Expression profiling by array Homo sapiens          300                                                             CEL;EXP
-# 16539  Expression profiling by array Homo sapiens          120                                                                 CEL
-#                                                  Supplementary.Links                  PubMed.ID SRA.Accession              Contact
-# 20365      ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSEnnn/GSE465/suppl                   11121445                     Eric P Hoffman
-# 151738                                                                                                        John Gilmary Hissong
-# 32434                                                                                  15388519                       Orit Shmueli
-# 74830    ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE1nnn/GSE1007/suppl                   12698323                     Judith Haslett
-# 147372                                                                                 15161964                        Brig Mecham
-# 20322                                                                         16059715;18424589                        Yong-Ho Lee
-# 164705   ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE5nnn/GSE5949/suppl 20053763;26048278;25003721                  Uma T Shankavaram
-# 16539  ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE51nnn/GSE51625/suppl                   24103848                    Carol Shoulders
-#        Release.Date
-# 20365  Jul 16, 2003
-# 151738 Jun 01, 2004
-# 32434  Nov 19, 2003
-# 74830  Feb 04, 2004
-# 147372 Apr 13, 2004
-# 20322  Jan 01, 2006
-# 164705 Aug 06, 2007
-# 16539  Oct 29, 2013
+# 20322  Expression profiling by array Homo sapiens          195
+# 164705 Expression profiling by array Homo sapiens          300
+# 16539  Expression profiling by array Homo sapiens          120
+#                                               Datasets Supplementary.Types
+# 20365               GDS214;GDS262;GDS264;GDS265;GDS270                 CEL
+# 151738              GDS719;GDS720;GDS721;GDS722;GDS723
+# 32434               GDS422;GDS423;GDS424;GDS425;GDS426
+# 74830                      GDS609;GDS610;GDS611;GDS612         CEL;EXP;RPT
+# 147372
+# 20322  GDS1495;GDS1496;GDS1497;GDS1498;GDS3601;GDS3602
+# 164705                                                             CEL;EXP
+# 16539                                                                  CEL
+#                                                  Supplementary.Links                  PubMed.ID SRA.Accession
+# 20365      ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSEnnn/GSE465/suppl                   11121445
 
-```
+# 151738
+
+# 32434                                                                                  15388519
+
+# 74830    ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE1nnn/GSE1007/suppl                   12698323
+
+# 147372                                                                                 15161964
+
+# 20322                                                                         16059715;18424589
+
+# 164705   ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE5nnn/GSE5949/suppl 20053763;26048278;25003721
+
+# 16539  ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE51nnn/GSE51625/suppl                   24103848
+
+#                     Contact Release.Date
+# 20365        Eric P Hoffman Jul 16, 2003
+# 151738 John Gilmary Hissong Jun 01, 2004
+# 32434          Orit Shmueli Nov 19, 2003
+# 74830        Judith Haslett Feb 04, 2004
+# 147372          Brig Mecham Apr 13, 2004
+# 20322           Yong-Ho Lee Jan 01, 2006
+# 164705    Uma T Shankavaram Aug 06, 2007
+# 16539       Carol Shoulders Oct 29, 2013
+
+'''
  
 ## Contributing
 
@@ -443,4 +518,5 @@ Source: <https://r-pkgs.org/release.html>
 ### Links
 
 - Omics Simla <https://omicssimla.sourceforge.io/>
-- micro array data simulation <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5003477/>
+- micro array data simulation
+  <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5003477/>

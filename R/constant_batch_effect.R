@@ -20,14 +20,18 @@
 #' n and p define the dimension of the matrix to return.
 #' b defines the batches the samples belong to. f defines the number of
 #' features will be affected. s defines how much each batch is effected.
-
 constant_batch_effect <- function(n, p, bias_func_args) {
     bias_mat <- matrix(0, n, p)
-    if (length(bias_func_args$s) == 1) {
-        bias_func_args$s <- rep(bias_func_args$s, bias_func_args$b)
-    }
     if (length(bias_func_args$b) == 1) {
         bias_func_args$b <- sample.int(bias_func_args$b, n, replace = TRUE)
+    }
+    n_batch <- max(bias_func_args$b)
+    len_s <- length(bias_func_args$s)
+    if ((n_batch - len_s) > 1) {
+        stop("Invalid function call")
+    }
+    if ((n_batch - len_s) == 1) {
+        bias_func_args$s <- append(0, bias_func_args$s)
     }
     r <- sample.int(p, bias_func_args$f, replace = FALSE)
     for (i in 1:n) {

@@ -6,8 +6,6 @@
 #' @param n The number of samples.
 #' @param p The number of features.
 #' @param base The base dataset to use as basis for the simulated data.
-#' @param gse GSE number of dataset that should be used as base. Cannot be used
-#' together with `base`.`
 #' @param noise_func A function taking the name of the noise function
 #' (e.g. random_noise, uniform_noise)
 #' @param noise_func_args Additional arguments to be passed to `noise_func`
@@ -21,9 +19,6 @@
 #' }
 #' \dontrun{
 #' simulate_dataset(10, 15)
-#' }
-#' \dontrun{
-#' simulate_dataset(n = 5, p = 8, gse = "GSE3821")
 #' }
 #' \dontrun{
 #' simulate_dataset(
@@ -53,20 +48,16 @@
 simulate_dataset <- function(n = 5,
                              p = 5,
                              base = simulatr::normal_data(n, p),
-                             gse = NULL,
                              noise_func = NULL,
                              noise_func_args = list(sd = 1),
                              bias_func = NULL,
                              bias_func_args = list(n = 1, p = 1, s = 1)) {
-  if (is.null(gse)) {
-    if (setequal(dim(base), c(n, p))) {
-      result <- base
-    } else {
-      result <- base[sample(nrow(base), n), sample(ncol(base), p)]
-    }
+  if (setequal(dim(base), c(n, p))) {
+    result <- base
   } else {
-    result <- simulatr::simulate_gse(n, p, gse)
+    result <- base[sample(nrow(base), n), sample(ncol(base), p)]
   }
+
 
   if (!is.null(noise_func)) {
     result <- result + noise_func(n, p, noise_func_args)
