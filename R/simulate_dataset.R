@@ -55,7 +55,8 @@ simulate_dataset <- function(n = 5,
   if (setequal(dim(base), c(n, p))) {
     result <- base
   } else {
-    result <- base[sample(nrow(base), n), sample(ncol(base), p)]
+    result <- base[sample(nrow(base), n, replace = TRUE),
+                   sample(ncol(base), p, replace = TRUE)]
   }
 
 
