@@ -9,7 +9,7 @@
 #' @return A matrix of size n*p
 #' @examples
 #' \dontrun{
-#' simuate_gse(50, 50, gse = "GSE3821")
+#' simulate_gse(10, 10, gse = "GSE3821")
 #' }
 #' @details
 #' n and p define the dimension of the matrix to return.
@@ -20,11 +20,11 @@
 simulate_gse <- function(n = 10, p = 10, gse = "GSE3821") {
     temp_data <- simulatr::get_dataset(gse)
     # feature name
-    rnames <- sample(rownames(temp_data), n, replace = FALSE)
+    rnames <- sample(rownames(temp_data), n, replace = TRUE)
     # sample name
-    cnames <- sample(colnames(temp_data), p, replace = FALSE)
+    cnames <- sample(colnames(temp_data), p, replace = TRUE)
     # data value
-    temp_list <- sample(temp_data, n * p, replace = FALSE)
+    temp_list <- sample(temp_data, n * p, replace = TRUE)
     data <- data.frame(matrix(temp_list, nrow = n, ncol = p))
     colnames(data) <- cnames
     rownames(data) <- rnames
