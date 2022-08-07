@@ -521,8 +521,13 @@ simulatr::list_datasets(platform = "GPL95")
 ## Probable workflow of the package
 
 1. Call list_platforms() to get the list of all platforms.
-2. Choose a platform from the list and get information about the platform using        get_gpl_data("GPL95").
-3. Get information about the gse numbers related to the given platform with list_datasets(platform = "GPL95").
-4. Use the gse numbers to get dataset using get_dataset("GSE803") or simulate_gse(15,15,"GSE803"). You can use the dataframe returned by these functions as a base_dataset.
+2. Choose a platform from the list and get information about the platform using
+   get_gpl_data("GPL95").
+3. Get information about the gse numbers related to the given platform with
+   list_datasets(platform = "GPL95").
+4. Use the gse numbers to get dataset using get_dataset("GSE803") or
+   simulate_gse(15,15,"GSE803"). You can use the dataframe returned by these
+   functions as a base_dataset.
 5. Simulate dataset with simulate_dataset().
-6. Control the noise, bias or correlation of the simulated dataset with the functions provided by the package.
+6. Control the noise, bias or correlation of the simulated dataset with the
+   functions provided by the package.
