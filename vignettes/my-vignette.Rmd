@@ -14,10 +14,26 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction to simulatr
+## Introduction
 
-We need data; be it data analysis, training, or evaluation of a model. In this package, we provide simulated data according to the need of the users. Our package is easy-to-use and cater to the need of the users. Users can control the number of features/samples, the correlation between features/samples and the amount of noise/bias within the data. We have designed this package keeping biological data in mind. So, this package also provides functions to retrieve data from NCBI.
+We need data; be it data analysis, training, or evaluation of a model. In this
+package, we provide simulated data according to the need of the users. Our
+package is easy-to-use and cater to the need of the users. Users can control the
+number of features/samples, the correlation between features/samples and the
+amount of noise/bias within the data. We have designed this package keeping
+biological data in mind. So, this package also provides functions to retrieve
+data from NCBI.
 
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Use Cases](#use-cases)
+  - [Simulate a dataset](#simulate-a-dataset)
+  - [List of the platforms](#list-of-the-platforms)
+  - [Retrieve data for a given platform](#retrieve-data-for-a-given-platform)
+  - [List of the datasets](#list-of-the-datasets)
+- [Importing the package](#importing-the-package)
+  
 ## Installation
 
 ```R
@@ -27,11 +43,21 @@ devtools::install_github("toscm/simulatr")
 install.packages("simulatr") # not yet available
 ```
 
-## Importing the package
+## Usage
 
-```{r setup}
-library(simulatr)
-```
+1. Call list_platforms() to get the list of all platforms.
+2. Choose a platform from the list and get information about the platform using
+   get_gpl_data("GPL95").
+3. Get information about the gse numbers related to the given platform with
+   list_datasets(platform = "GPL95").
+4. Use the gse numbers to get dataset using get_dataset("GSE803") or
+   simulate_gse(15,15,"GSE803"). You can use the dataframe returned by these
+   functions as a base_dataset.
+5. Simulate dataset with simulate_dataset().
+6. Control the noise, bias or correlation of the simulated dataset with the
+   functions provided by the package.
+
+## Use Cases
 
 ### Simulate a dataset
 
@@ -55,8 +81,8 @@ simulatr::simulate_dataset()
 
 #### With given dimension
 
-The users can define the dimension of the simulated data. n is the number of
-samples and p is the number of features (e.g. genes).
+The users can define the dimension of the simulated data. `n` is the number of
+samples and `p` is the number of features (e.g. genes).
 
 ```R
 simulatr::simulate_dataset(n = 2, p = 3)
@@ -71,8 +97,8 @@ simulatr::simulate_dataset(n = 2, p = 3)
 
 #### With given data
 
-The users can provide a dataframe from which they want to derive from the
-simulated data.
+The users can provide a dataframe from which they want to derive the simulated
+data.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -92,13 +118,13 @@ simulatr::simulate_dataset(n = 5,
 
 #### With given gse
 
-The user can use simulate_gse function as base. In that case, user will get
-simulated data related to that specific *gse* number.
+The users can use simulate_gse function as base. In that case, the users will
+get simulated data related to that specific `gse` number.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
                            p = 5, 
-                           base = simulatr::simulate_gse(n=10,p=10,"GSE3821"))
+                           base = simulatr::simulate_gse(n = 10, p = 10, "GSE3821"))
 
 # result :
 
@@ -114,14 +140,14 @@ simulatr::simulate_dataset(n = 5,
 #### With given noise
 
 The users can choose the type of noise they want to add to their simulated data.
-The users can either provide their own noise (a n*p dimensional matrix) or
-choose from the given noise functions. If they choose the given noise function
+They can either provide their own noise (a n*p dimensional matrix) or
+choose from the given noise functions. If they choose the given noise function,
 they have to provide arguments for the chosen one. We provide noise function
 with gaussian, poisson, exponential, binomial and uniform distribution.
 
 ##### Gaussian/normal noise function
 
-Here argument *sd* is the standard deviation of the noise.
+Here argument `sd` is the standard deviation of the noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -142,7 +168,7 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Poisson noise
 
-Here *lambda* is the argument of poisson noise.
+Here `lambda` is the argument of poisson noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -163,8 +189,8 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Uniform noise
 
-Here *min* and *max* are the function arguments of uniform noise. *min* and
-*max* define the range of the noise.
+Here `min` and `max` are the function arguments of uniform noise. `min` and
+`max` define the range of the noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -185,14 +211,14 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Binomial noise
 
-Here *size* and *prob* are the function arguments. *size* defines the number of
-trials and *prob* defines the probability of success on each trial.
+Here `size` and `prob` are the function arguments. `size` defines the number of
+trials and `prob` defines the probability of success on each trial.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
                            p = 5, 
                            noise_func = binomial_noise, 
-                           noise_func_args = list(size=10, prob=0.5))
+                           noise_func_args = list(size = 10, prob = 0.5))
 
 # result :
 
@@ -207,7 +233,7 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Exponential noise
 
-Here *rate* is the function argument.
+Here `rate` is the function argument.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -229,22 +255,30 @@ result :
 #### With given bias
 
 The users can choose the type of bias they want to add to their simulated data.
-The users can either provide their own bias (a (n, p) dimensional matrix) or
+They can either provide their own bias (a (n, p) dimensional matrix) or
 choose from the given bias functions. If they choose the given bias function,
 they have to provide arguments for the chosen one. We provide bias function
-named *constant_batch_effect*.
+named `constant_batch_effect`.
 
 ##### Constant batch effect
 
-*n* and *p* denotes the number of samples and features respectively. *b* denotes
-the batch each sample belongs to. Suppose, the samples come from 3 different
-places. User can define which sample belongs to which place. If *b =
-c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to
-batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f*
-denotes the number of features to be affected. If user chooses f=4, then 4
-features will be randomly selected. *s* denotes how much each batch is affected.
-*s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1
-respectively.
+`n` and `p` denotes the number of samples and features respectively.
+
+`b` denotes the batch each sample belongs to. Suppose, the samples come from 3
+different places. The users can define which sample belongs to which place. If
+*b = c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch 1, sample 2 belongs
+to batch 2, sample 3 belongs to batch 1, sample 5 belongs to batch 3 and so on.
+
+`f` denotes the number of features to be affected. If the user chooses *f = 4*,
+then 4 features will be randomly selected.
+
+*s = c(1,2,1)* means batch 1, 2 and 3 will be affected by 1, 2 and 1
+respectively. `s` denotes the strength of the batch effect, i.e., how much the
+feature values within a batch are changed through the batch effect. Here, sample
+2 and 5 belong to batch 1 and other samples belong to batch 2. Samples in batch
+1 have their feature values increased by `s = 1` whereas samples in batch 2 have
+their feature values increased by `s = 2`. Features 1,3,4 and 5 are affected by
+the batch effects.
 
 Here is an example :
 
@@ -257,9 +291,9 @@ simulatr::simulate_dataset( n = 7,
                             p = 8,
                             base = data.frame(matrix(0, 7, 8)),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=c(1,2,1,2,3,3,2),
-                            f=4,
-                            s=c(1,2,1))))
+                            bias_func_args = (list(b = c(1,2,1,2,3,3,2),
+                            f = 4,
+                            s = c(1,2,1))))
 
 # result :
 
@@ -274,15 +308,15 @@ simulatr::simulate_dataset( n = 7,
 
 ````
 
-User can call a simplified version of constant_batch_effect. If users define b =
-2, then samples will be randomly assigned to 2 different batches.
+The users can call a simplified version of constant_batch_effect. If users
+define `b = 2`, then samples will be randomly assigned to 2 different batches.
 
 ```R
 simulatr::simulate_dataset( n = 5,
                             p = 5,
                             base = data.frame(matrix(0, 5, 5)),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2, f=4, s=c(1,2))))
+                            bias_func_args = (list(b = 2, f = 4, s = c(1, 2))))
 
 # result :
 
@@ -295,11 +329,12 @@ simulatr::simulate_dataset( n = 5,
 
 ```
 
-Here sample2 and sample5 belongs to batch1 and other samples belong to batch2.
-batch1 if affected by 1 wheras batch2 is affected by 2.   feature1, feature3,
-feature4 and feature5 is affected.
+Here, sample 2 and sample 5 belongs to batch 1 and other samples belong to batch
+2. Batch 1 is increased by 1 wheras batch 2 is increased by 2.Four featues,
+feature 1, feature 3, feature 4 and feature 5, are randomly selected for the
+effect.
 
-In a more simplified version, if first batch is affected by 0, then user can
+In a more simplified version, if the first batch is affected by 0, then user can
 skip that.
 
 ```R
@@ -307,7 +342,7 @@ simulatr::simulate_dataset(n = 5,
                            p = 5,
                            base = data.frame(matrix(0, 5, 5)),
                            bias_func = constant_batch_effect,
-                           bias_func_args = (list(b=2, f=2, s=1)))
+                           bias_func_args = (list(b = 2, f = 2, s = 1)))
 
 # result :
 
@@ -320,8 +355,9 @@ simulatr::simulate_dataset(n = 5,
 
 ```
 
-Here feature4 and feature5 are affected. All the batches are affected by the
-same number.
+Here, feature 1 and 2 are affected. Sample 1, 3 and 4 belong to batch 1. Other
+samples belong to batch 2. Batch 1 is increased by 0 and batch 2 is increased by
+1.
 
 #### Some more examples
 
@@ -330,7 +366,7 @@ simulatr::simulate_dataset( n = 7,
                             p = 8,
                             base = simulate_gse(10, 10, gse = "GSE461"),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2, f=4, s=c(1,2))))
+                            bias_func_args = (list(b = 2, f = 4, s = c(1, 2))))
 
 # Result:
 
@@ -350,7 +386,7 @@ simulatr::simulate_dataset( n = 20,
                             p = 4,
                             base = get_dataset(gse = "GSE461"),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2, f=4, s=c(1,2))))
+                            bias_func_args = (list(b = 2, f = 4, s = c(1,2))))
 
 # Result:
 
@@ -382,9 +418,9 @@ simulatr::simulate_dataset( n = 10,
                             p = 4,
                             base = get_dataset(gse = "GSE461"),
                             noise_func = uniform_noise,
-                            noise_func_args = list(min=1, max=2),
+                            noise_func_args = list(min = 1, max = 2),
                             bias_func = constant_batch_effect,
-                            bias_func_args = list(b=2, f=4, s=c(1,2)))
+                            bias_func_args = list(b = 2, f = 4, s = c(1, 2)))
 
 # Result :
 #               GSM7492     GSM7495    GSM7493     GSM7496
@@ -403,11 +439,11 @@ simulatr::simulate_dataset( n = 10,
 ```R
 simulatr::simulate_dataset( n = 8,
                             p = 4,
-                            base = simulate_gse(15,15,"GSE803"),
+                            base = simulate_gse(15, 15, "GSE803"),
                             noise_func = uniform_noise,
-                            noise_func_args = list(min=1, max=2),
+                            noise_func_args = list(min = 1, max = 2),
                             bias_func = constant_batch_effect,
-                            bias_func_args = list(b=2, f=4, s=c(1,2)))
+                            bias_func_args = list(b = 2, f = 4, s = c(1, 2)))
 
 # Result:
 
@@ -420,6 +456,25 @@ simulatr::simulate_dataset( n = 8,
 # 35327_at    180.59832  17.05115 216.95698  97.889850
 # 38910_at   1174.29895  60.09656  15.56079   4.801443
 # 35920_at     17.45200 158.22371  41.74438  11.826267 
+```
+
+The users can provide their own noise or bias matrix if they want.
+
+```R
+simulatr::simulate_dataset( n = 4,
+                            p = 4,
+                            base = simulate_gse(15, 15, "GSE803"),
+                            noise_func = matrix(1, 4, 4),
+                            bias_func = matrix(2, 4, 4))
+
+# Result : 
+
+#          GSM12718 GSM12723 GSM12674 GSM12723.1
+# 36308_at     77.2    782.3     61.8      782.3
+# 39768_at     78.1     22.6    126.7       22.6
+# 40584_at     14.0   1722.5      6.4     1722.5
+# 37259_at     10.4    964.2     22.5      964.2
+
 ```
 
 ### List of the platforms
@@ -448,7 +503,7 @@ utils::head(simulatr::list_platforms(),3)
 
 ### Retrieve data for a given platform
 
-User can retrieve data for a specific platform (e.g. GPL97)
+The users can retrieve data for a specific platform (e.g. GPL97)
 
 ```R
 simulatr::get_gpl_data("GPL96")
@@ -463,8 +518,8 @@ simulatr::get_gpl_data("GPL96")
 
 ### List of the datasets
 
-Information about all gse (e.g. GSE465) related to a specific platform (e.g.
-GPL95)
+Provides information about all series (e.g. GSE465) related to a specific
+platform (e.g. GPL95)
 
 ```R
 simulatr::list_datasets(platform = "GPL95")
@@ -525,16 +580,8 @@ simulatr::list_datasets(platform = "GPL95")
 # 16539       Carol Shoulders Oct 29, 2013
 ```
 
-## Probable workflow of the package
+## Importing the package
 
-1. Call list_platforms() to get the list of all platforms.
-2. Choose a platform from the list and get information about the platform using
-   get_gpl_data("GPL95").
-3. Get information about the gse numbers related to the given platform with
-   list_datasets(platform = "GPL95").
-4. Use the gse numbers to get dataset using get_dataset("GSE803") or
-   simulate_gse(15,15,"GSE803"). You can use the dataframe returned by these
-   functions as a base_dataset.
-5. Simulate dataset with simulate_dataset().
-6. Control the noise, bias or correlation of the simulated dataset with the
-   functions provided by the package.
+```{r setup}
+library(simulatr)
+```

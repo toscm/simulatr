@@ -19,10 +19,6 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
     e.g. .github/workflows/*, README.md, etc. Infrastructure updates increase
     the patch version.
 
-## [0.1.0] - 2022-08-05
-
-- `Added`: Initial Version.
-
 ## [0.1.1] - 2022-08-03
 
 ### Added
@@ -39,3 +35,7 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
 ### Deleted
 
 - 'gse' parameter from simulate_dataset
+
+## [0.1.0] - 2022-08-05
+
+- `Added`: Initial Version.
