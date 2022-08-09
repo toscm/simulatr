@@ -422,8 +422,6 @@ simulatr::simulate_dataset( n = 8,
 # 35920_at     17.45200 158.22371  41.74438  11.826267 
 ```
 
-Remark: Dimension of function must not exceed the dimension of the base.
-
 ### List of the platforms
 
 Provides list of all the platforms(e.g. GPL97) available in NCBI.
