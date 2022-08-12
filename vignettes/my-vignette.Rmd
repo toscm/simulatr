@@ -1,17 +1,22 @@
 ---
 title: "my-vignette"
 output: rmarkdown::html_vignette
+param:
+   pic: system.file("Pictures/const_batch_effect1.jpg", package="simulatr")
 vignette: >
   %\VignetteIndexEntry{my-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+devtools::load_all()
+x <- system.file("Pictures/const_batch_effect1.jpg", package="simulatr")
+cat(x, file = "C:/Users/ASUS/simulatr/tmp.txt")
 ```
 
 ## Introduction
@@ -282,9 +287,11 @@ the batch effects.
 
 Here is an example :
 
-<img src="inst/Pictures/const_batch_effect1.jpg" align = "center" width = 400/>
-<br>
-<br>
+</br>
+<img src = "../inst/Pictures/const_batch_effect1.jpg" width
+= 50% height = 50% >
+</br>
+</br>
 
 ```R
 simulatr::simulate_dataset( n = 7,

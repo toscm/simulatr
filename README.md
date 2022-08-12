@@ -299,8 +299,7 @@ the batch effects.
 
 Here is an example :
 
-<img src="inst/Pictures/const_batch_effect1.jpg" align = "center" width = 400/>
-<br>
+<img src = "../inst/Pictures/const_batch_effect1.jpg" align = center width = 400/>
 <br>
 
 ```R
