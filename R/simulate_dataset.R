@@ -48,22 +48,23 @@
 simulate_dataset <- function(n = 5,
                              p = 5,
                              base = simulatr::normal_data(n, p),
-                             noise_func = NULL,
-                             noise_func_args = list(sd = 1),
-                             bias_func = NULL,
-                             bias_func_args = list(n = 1, p = 1, s = 1)) {
+                             noise_func = noise_func(n, p, noise_func_args),
+                             noise_func_args = NULL,
+                             bias_func = bias_func(n, p, bias_func_args),
+                             bias_func_args = NULL) {
   if (setequal(dim(base), c(n, p))) {
     result <- base
   } else {
-    result <- base[sample(nrow(base), n), sample(ncol(base), p)]
+    result <- base[sample(nrow(base), n, replace = TRUE),
+                   sample(ncol(base), p, replace = TRUE)]
   }
 
 
-  if (!is.null(noise_func)) {
+  if (!is.null(noise_func_args)) {
     result <- result + noise_func(n, p, noise_func_args)
   }
 
-  if (!is.null(bias_func)) {
+  if (!is.null(bias_func_args)) {
     result <- result + bias_func(n, p, bias_func_args)
   }
 

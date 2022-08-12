@@ -22,6 +22,7 @@ biases, noise and the relationship between predictors and outcome variable.
   - [List of the platforms](#list-of-the-platforms)
   - [Retrieve data for a given platform](#retrieve-data-for-a-given-platform)
   - [List of the datasets](#list-of-the-datasets)
+- [Contributing](#contributing)
 - [Related Work](#related-work)
   - [Summary](#summary)
   - [Links](#links)
@@ -39,20 +40,20 @@ such datasets as easy as possible.
 
 ## Next Steps
 
-- [ ] Remove `gse` parameter
-- [ ] Fix indentation of examples in README
-- [ ] Fix simplest bias example in README
-- [ ] Replace `*.csv` files with one big `.rda` or `.rds` file (see function
+- [x] Remove `gse` parameter
+- [x] Fix indentation of examples in README
+- [x] Fix simplest bias example in README
+- [x] Replace `*.csv` files with one big `.rda` or `.rds` file (see function
   `saveRDS`)
-- [ ] Read `*.rds` file only once  (see e.g. package `memoise`)
-- [ ] Add a changelog to the package (from now on, every pull request should
+- [x] Read `*.rds` file only once  (see e.g. package `memoise`)
+- [x] Add a changelog to the package (from now on, every pull request should
   increase the package version. See <https://keepachangelog.com/en/1.0.0/> and
   <https://semver.org/>.
-- [ ] Make `list_datasets` return all available Metadata (not just title title,
+- [x] Make `list_datasets` return all available Metadata (not just title title,
   type, platform_id and data_row_count)
-- [ ] Document package usage either in a
+- [x] Document package usage either in a
   [vignette](https://r-pkgs.org/vignettes.html) or in chapter [Usage](#usage).
-- [ ] Write tests for all functions. See <https://r-pkgs.org/tests.html> for
+- [x] Write tests for all functions. See <https://r-pkgs.org/tests.html> for
   details on how to write testcases for R functions.
 - [ ] Implement `cor_func` / `cor_func_args` argument: be creative
 - [ ] Make sure all functions are thoroughly documented. See
@@ -97,8 +98,8 @@ simulatr::simulate_dataset()
 
 #### With given dimension
 
-The users can define the dimension of the simulated data. n is the number of
-samples and p is the number of features (e.g. genes).
+The users can define the dimension of the simulated data. `n` is the number of
+samples and `p` is the number of features (e.g. genes).
 
 ```R
 simulatr::simulate_dataset(n = 2, p = 3)
@@ -113,8 +114,8 @@ simulatr::simulate_dataset(n = 2, p = 3)
 
 #### With given data
 
-The users can provide a dataframe from which they want to derive from the
-simulated data.
+The users can provide a dataframe from which they want to derive the simulated
+data.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -134,13 +135,13 @@ simulatr::simulate_dataset(n = 5,
 
 #### With given gse
 
-The user can use simulate_gse function as base. In that case, user will get
-simulated data related to that specific *gse* number.
+The users can use simulate_gse function as base. In that case, the users will
+get simulated data related to that specific `gse` number.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
                            p = 5, 
-                           base = simulatr::simulate_gse(n=10,p=10,"GSE3821"))
+                           base = simulatr::simulate_gse(n = 10, p = 10, "GSE3821"))
 
 # result :
 
@@ -156,14 +157,14 @@ simulatr::simulate_dataset(n = 5,
 #### With given noise
 
 The users can choose the type of noise they want to add to their simulated data.
-The users can either provide their own noise (a n*p dimensional matrix) or
-choose from the given noise functions. If they choose the given noise function
+They can either provide their own noise (a n*p dimensional matrix) or
+choose from the given noise functions. If they choose the given noise function,
 they have to provide arguments for the chosen one. We provide noise function
 with gaussian, poisson, exponential, binomial and uniform distribution.
 
 ##### Gaussian/normal noise function
 
-Here argument *sd* is the standard deviation of the noise.
+Here argument `sd` is the standard deviation of the noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -184,7 +185,7 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Poisson noise
 
-Here *lambda* is the argument of poisson noise.
+Here `lambda` is the argument of poisson noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -205,8 +206,8 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Uniform noise
 
-Here *min* and *max* are the function arguments of uniform noise. *min* and
-*max* define the range of the noise.
+Here `min` and `max` are the function arguments of uniform noise. `min` and
+`max` define the range of the noise.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -227,14 +228,14 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Binomial noise
 
-Here *size* and *prob* are the function arguments. *size* defines the number of
-trials and *prob* defines the probability of success on each trial.
+Here `size` and `prob` are the function arguments. `size` defines the number of
+trials and `prob` defines the probability of success on each trial.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
                            p = 5, 
                            noise_func = binomial_noise, 
-                           noise_func_args = list(size=10, prob=0.5))
+                           noise_func_args = list(size = 10, prob = 0.5))
 
 # result :
 
@@ -249,7 +250,7 @@ simulatr::simulate_dataset(n = 5,
 
 ##### Exponential noise
 
-Here *rate* is the function argument.
+Here `rate` is the function argument.
 
 ```R
 simulatr::simulate_dataset(n = 5, 
@@ -271,27 +272,34 @@ result :
 #### With given bias
 
 The users can choose the type of bias they want to add to their simulated data.
-The users can either provide their own bias (a (n, p) dimensional matrix) or
+They can either provide their own bias (a (n, p) dimensional matrix) or
 choose from the given bias functions. If they choose the given bias function,
 they have to provide arguments for the chosen one. We provide bias function
-named *constant_batch_effect*.
+named `constant_batch_effect`.
 
 ##### Constant batch effect
 
-*n* and *p* denotes the number of samples and features respectively. *b* denotes
-the batch each sample belongs to. Suppose, the samples come from 3 different
-places. User can define which sample belongs to which place. If *b =
-c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch1, sample2 belongs to
-batch2, sample3 belongs to batch1, sample5 belongs to batch3 and so on. *f*
-denotes the number of features to be affected. If user chooses f=4, then 4
-features will be randomly selected. *s* denotes how much each batch is affected.
-*s = c(1,2,1)* means batch1, batch2 and batch3 will be affected by 1, 2 and 1
-respectively.
+`n` and `p` denotes the number of samples and features respectively.
+
+`b` denotes the batch each sample belongs to. Suppose, the samples come from 3
+different places. The users can define which sample belongs to which place. If
+*b = c(1,2,1,2,3,3,2)*, that means sample1 belongs to batch 1, sample 2 belongs
+to batch 2, sample 3 belongs to batch 1, sample 5 belongs to batch 3 and so on.
+
+`f` denotes the number of features to be affected. If the user chooses *f = 4*,
+then 4 features will be randomly selected.
+
+*s = c(1,2,1)* means batch 1, 2 and 3 will be affected by 1, 2 and 1
+respectively. `s` denotes the strength of the batch effect, i.e., how much the
+feature values within a batch are changed through the batch effect. Here, sample
+2 and 5 belong to batch 1 and other samples belong to batch 2. Samples in batch
+1 have their feature values increased by `s = 1` whereas samples in batch 2 have
+their feature values increased by `s = 2`. Features 1,3,4 and 5 are affected by
+the batch effects.
 
 Here is an example :
 
-<img src="inst/Pictures/const_batch_effect1.jpg" align = "center" width = 400/>
-<br>
+<img src = "../inst/Pictures/const_batch_effect1.jpg" align = center width = 400/>
 <br>
 
 ```R
@@ -299,9 +307,9 @@ simulatr::simulate_dataset( n = 7,
                             p = 8,
                             base = data.frame(matrix(0, 7, 8)),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=c(1,2,1,2,3,3,2),
-                            f=4,
-                            s=c(1,2,1))))
+                            bias_func_args = (list(b = c(1,2,1,2,3,3,2),
+                            f = 4,
+                            s = c(1,2,1))))
 
 # result :
 
@@ -316,15 +324,15 @@ simulatr::simulate_dataset( n = 7,
 
 ````
 
-User can call a simplified version of constant_batch_effect. If users define b =
-2, then samples will be randomly assigned to 2 different batches.
+The users can call a simplified version of constant_batch_effect. If users
+define `b = 2`, then samples will be randomly assigned to 2 different batches.
 
 ```R
 simulatr::simulate_dataset( n = 5,
                             p = 5,
                             base = data.frame(matrix(0, 5, 5)),
                             bias_func = constant_batch_effect,
-                            bias_func_args = (list(b=2, f=4, s=c(1,2))))
+                            bias_func_args = (list(b = 2, f = 4, s = c(1, 2))))
 
 # result :
 
@@ -337,11 +345,12 @@ simulatr::simulate_dataset( n = 5,
 
 ```
 
-Here sample2 and sample5 belongs to batch1 and other samples belong to batch2.
-batch1 if affected by 1 wheras batch2 is affected by 2.   feature1, feature3,
-feature4 and feature5 is affected.
+Here, sample 2 and sample 5 belongs to batch 1 and other samples belong to batch
+2. Batch 1 is increased by 1 wheras batch 2 is increased by 2.Four featues,
+feature 1, feature 3, feature 4 and feature 5, are randomly selected for the
+effect.
 
-In a more simplified version, if first batch is affected by 0, then user can
+In a more simplified version, if the first batch is affected by 0, then user can
 skip that.
 
 ```R
@@ -349,7 +358,7 @@ simulatr::simulate_dataset(n = 5,
                            p = 5,
                            base = data.frame(matrix(0, 5, 5)),
                            bias_func = constant_batch_effect,
-                           bias_func_args = (list(b=2, f=2, s=1)))
+                           bias_func_args = (list(b = 2, f = 2, s = 1)))
 
 # result :
 
@@ -362,10 +371,127 @@ simulatr::simulate_dataset(n = 5,
 
 ```
 
-Here feature4 and feature5 are affected. All the batches are affected by the
-same number.
+Here, feature 1 and 2 are affected. Sample 1, 3 and 4 belong to batch 1. Other
+samples belong to batch 2. Batch 1 is increased by 0 and batch 2 is increased by
+1.
 
 #### Some more examples
+
+```R
+simulatr::simulate_dataset( n = 7,
+                            p = 8,
+                            base = simulate_gse(10, 10, gse = "GSE461"),
+                            bias_func = constant_batch_effect,
+                            bias_func_args = (list(b = 2, f = 4, s = c(1, 2))))
+
+# Result:
+
+#           GSM7490 GSM7492 GSM7490.1 GSM7493 GSM7490.2 GSM7496 GSM7490.3 GSM7496.1
+# 2733_g_at    10.3   354.7      10.6   117.4      90.2   406.0      92.6      90.2
+# 10444_at   1021.6   589.6     654.3   401.7      51.5   447.1      42.4       5.7
+# 11127_at     20.0   561.9     512.3   655.7      40.6  1049.8    1671.4    1582.4
+# 4933_at    4875.3    55.6     447.1   551.4    1216.3    20.1       8.2     384.2
+# 11275_at     67.2   580.1       4.5    95.2      77.1    85.8      57.6     233.4
+# 6862_at     197.2   136.2      42.8   202.4       0.8    22.1     114.1     174.8
+# 5644_at     699.3    72.2    2345.4    18.9       0.8   139.3      44.1     723.0 
+
+```
+
+```R
+simulatr::simulate_dataset( n = 20,
+                            p = 4,
+                            base = get_dataset(gse = "GSE461"),
+                            bias_func = constant_batch_effect,
+                            bias_func_args = (list(b = 2, f = 4, s = c(1, 2))))
+
+# Result:
+
+#            GSM7492 GSM7495 GSM7496 GSM7491
+# 8503_at        4.5    19.1    25.7    19.5
+# 5374_at       28.9     9.0     3.5     2.9
+# 5238_at      839.4  1309.4  1230.5   920.0
+# 5386_at      373.2   332.9   483.9   272.7
+# 5194_at      632.5   597.5   499.2   775.1
+# 7123_at       64.1    85.4   104.2   117.2
+# 5333_at      370.6    76.4   187.0   323.6
+# 7958_at        4.3     6.2     4.5     3.2
+# 6856_at      404.5   614.0   618.9   530.4
+# 10770_at    2412.1  2193.4  1652.2  2670.6
+# 10993_at    3354.7  1345.3  1857.6  3500.1
+# 8252_at     2678.9  1661.9  1087.9  2632.1
+# 6981_at      561.3   268.1   180.1   438.2
+# 10827_s_at   115.3   108.6    76.7   121.6
+# 11136_at     508.4   316.6   214.7   471.8
+# 8175_at       21.9     5.1    15.0    14.9
+# 10190_at     133.7   166.6   114.1    41.6
+# 7720_at        4.1     2.8     1.5     3.1
+# 10242_at     658.5  1197.6  1259.5   616.7
+# 2314_at        2.7     3.5     2.5     4.0 
+```
+
+```R
+simulatr::simulate_dataset( n = 10,
+                            p = 4,
+                            base = get_dataset(gse = "GSE461"),
+                            noise_func = uniform_noise,
+                            noise_func_args = list(min = 1, max = 2),
+                            bias_func = constant_batch_effect,
+                            bias_func_args = list(b = 2, f = 4, s = c(1, 2)))
+
+# Result :
+#               GSM7492     GSM7495    GSM7493     GSM7496
+# 5706_at    138.765988  140.009436  122.18638  142.362293
+# 5055_at     46.729894   32.160862   43.61547   41.714460
+# 5662_at    636.360690  518.906011  709.55725  330.161930
+# 3580_f_at 1319.538146 2992.370463 1400.84572 2042.791904
+# 6477_at    619.231089  632.390663  627.33365  427.670557
+# 11170_at     4.974592   21.439322   22.32108   21.185163
+# 4971_at     51.205235   84.743411   41.68645   59.699879
+# 6589_at   1090.293347 1199.824401 1041.52099 1420.509870
+# 2647_at     11.021299    4.667569   11.37919    6.209028
+# 5387_at    245.777407  211.993438  124.88081  335.907862 
+```
+
+```R
+simulatr::simulate_dataset( n = 8,
+                            p = 4,
+                            base = simulate_gse(15, 15, "GSE803"),
+                            noise_func = uniform_noise,
+                            noise_func_args = list(min = 1, max = 2),
+                            bias_func = constant_batch_effect,
+                            bias_func_args = list(b = 2, f = 4, s = c(1, 2)))
+
+# Result:
+
+#              GSM12738  GSM12723  GSM12649   GSM12698
+# 31366_at    200.53742  12.80908 647.98507   9.251130
+# 38901_at     12.44034 296.25831  27.65901   3.721115
+# 41774_at     16.11559 337.79170 759.81003  16.470416
+# 310_s_at    459.91977  36.69029 161.48037 647.954018
+# 31608_g_at 1511.23696 219.72824  17.24672   9.169994
+# 35327_at    180.59832  17.05115 216.95698  97.889850
+# 38910_at   1174.29895  60.09656  15.56079   4.801443
+# 35920_at     17.45200 158.22371  41.74438  11.826267 
+```
+
+The users can provide their own noise or bias matrix if they want.
+
+```R
+simulatr::simulate_dataset( n = 4,
+                            p = 4,
+                            base = simulate_gse(15,15,"GSE803"),
+                            noise_func = matrix(1, 4, 4),
+                            bias_func = matrix(2, 4, 4))
+
+# Result : 
+
+#          GSM12718 GSM12723 GSM12674 GSM12723.1
+# 36308_at     77.2    782.3     61.8      782.3
+# 39768_at     78.1     22.6    126.7       22.6
+# 40584_at     14.0   1722.5      6.4     1722.5
+# 37259_at     10.4    964.2     22.5      964.2
+
+```
 
 ### List of the platforms
 
@@ -393,7 +519,7 @@ utils::head(simulatr::list_platforms(),3)
 
 ### Retrieve data for a given platform
 
-User can retrieve data for a specific platform (e.g. GPL97)
+The users can retrieve data for a specific platform (e.g. GPL97)
 
 ```R
 simulatr::get_gpl_data("GPL96")
@@ -408,8 +534,8 @@ simulatr::get_gpl_data("GPL96")
 
 ### List of the datasets
 
-Information about all gse (e.g. GSE465) related to a specific platform (e.g.
-GPL95)
+Provides information about all series (e.g. GSE465) related to a specific
+platform (e.g. GPL95)
 
 ```R
 simulatr::list_datasets(platform = "GPL95")
@@ -468,9 +594,8 @@ simulatr::list_datasets(platform = "GPL95")
 # 20322           Yong-Ho Lee Jan 01, 2006
 # 164705    Uma T Shankavaram Aug 06, 2007
 # 16539       Carol Shoulders Oct 29, 2013
+```
 
-'''
- 
 ## Contributing
 
 1. Create a new feature branch

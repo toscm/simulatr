@@ -8,10 +8,10 @@ simulate_dataset(
   n = 5,
   p = 5,
   base = simulatr::normal_data(n, p),
-  noise_func = NULL,
-  noise_func_args = list(sd = 1),
-  bias_func = NULL,
-  bias_func_args = list(n = 1, p = 1, s = 1)
+  noise_func = noise_func(n, p, noise_func_args),
+  noise_func_args = NULL,
+  bias_func = bias_func(n, p, bias_func_args),
+  bias_func_args = NULL
 )
 }
 \arguments{
