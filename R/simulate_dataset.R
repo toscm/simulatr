@@ -5,7 +5,7 @@
 #' `simulate_dataset()` returns a simulated dataset.
 #' @param n The number of samples.
 #' @param p The number of features.
-#' @param base The base dataset to use as basis for the simulated data.
+#' @param base The base dataframe to use as basis for the simulated data.
 #' @param noise_func A function taking the name of the noise function
 #' (e.g. random_noise, uniform_noise)
 #' @param noise_func_args Additional arguments to be passed to `noise_func`
@@ -45,28 +45,44 @@
 #' }
 #'
 #' @details see Readme.md
+#'
 simulate_dataset <- function(n = 5,
                              p = 5,
                              base = simulatr::normal_data(n, p),
-                             noise_func = noise_func(n, p, noise_func_args),
+                             noise_func = matrix(0, n, p),
                              noise_func_args = NULL,
-                             bias_func = bias_func(n, p, bias_func_args),
+                             bias_func = matrix(0, n, p),
                              bias_func_args = NULL) {
   if (setequal(dim(base), c(n, p))) {
     result <- base
   } else {
-    result <- base[sample(nrow(base), n, replace = TRUE),
-                   sample(ncol(base), p, replace = TRUE)]
+    result <- base[
+      sample(nrow(base), n, replace = TRUE),
+      sample(ncol(base), p, replace = TRUE)
+    ]
   }
-
+  cat("The actual simulated data : \n")
+  print(result)
 
   if (!is.null(noise_func_args)) {
-    result <- result + noise_func(n, p, noise_func_args)
+    temp_noise <- noise_func(n, p, noise_func_args)
+  } else {
+    temp_noise <- noise_func
   }
+  result <- result + temp_noise
+  cat("\nThe noise matrix : \n")
+  print(matrix(temp_noise, n, p))
+
 
   if (!is.null(bias_func_args)) {
-    result <- result + bias_func(n, p, bias_func_args)
+    temp_bias <- bias_func(n, p, bias_func_args)
+  } else {
+    temp_bias <- bias_func
   }
-
-  return(result)
+  result <- result + temp_bias
+  cat("\nThe bias matrix : \n")
+  print(matrix(temp_bias, n, p))
+  
+  cat("\nThe final simulated data : \n")
+  print(result)
 }
