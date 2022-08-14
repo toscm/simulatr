@@ -32,14 +32,13 @@
 #' simulate_dataset(
 #'   n = 10,
 #'   p = 10,
-#'   gse = "GSE3821",
 #'   noise_func = uniform_noise,
 #'   noise_func_args = list(min = 0, max = 1),
 #'   bias_func = constant_batch_effect,
 #'   bias_func_args = list(
 #'     b = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4),
 #'     f = 4,
-#'     s = c(0, 1)
+#'     s = c(0, 1, 2, 3)
 #'   )
 #' )
 #' }
@@ -65,7 +64,7 @@ simulate_dataset <- function(n = 5,
   print(result)
 
   if (!is.null(noise_func_args)) {
-    temp_noise <- noise_func(n, p, noise_func_args)
+    temp_noise <- simulatr::noise_func(n, p, noise_func_args)
   } else {
     temp_noise <- noise_func
   }
@@ -75,14 +74,19 @@ simulate_dataset <- function(n = 5,
 
 
   if (!is.null(bias_func_args)) {
-    temp_bias <- bias_func(n, p, bias_func_args)
+    temp_bias <- simulatr::bias_func(n, p, bias_func_args)
+    cat("\nBatch : \n")
+    print(temp_bias[[1]])
+    cat("\nThe bias matrix : \n")
+    print(temp_bias[[2]])
+    result <- result + temp_bias[[2]]
   } else {
     temp_bias <- bias_func
+    cat("\nThe bias matrix : \n")
+    print(temp_bias)
+    result <- result + temp_bias
   }
-  result <- result + temp_bias
-  cat("\nThe bias matrix : \n")
-  print(matrix(temp_bias, n, p))
-  
+
   cat("\nThe final simulated data : \n")
   print(result)
 }
