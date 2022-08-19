@@ -5,6 +5,7 @@
 #' `simulate_dataset()` returns a simulated dataset.
 #' @param n The number of samples.
 #' @param p The number of features.
+#' @param beta A (q*p) matrix to denote the effect of each feature
 #' @param base The base dataframe to use as basis for the simulated data.
 #' @param noise_func A function taking the name of the noise function
 #' (e.g. random_noise, uniform_noise)
@@ -48,6 +49,7 @@
 simulate_dataset <- function(n = 5,
                              p = 5,
                              base = simulatr::normal_data(n, p),
+                             beta = NULL,
                              noise_func = matrix(0, n, p),
                              noise_func_args = NULL,
                              bias_func = matrix(0, n, p),
@@ -63,6 +65,16 @@ simulate_dataset <- function(n = 5,
   cat("The actual simulated data : \n")
   print(result)
 
+  if (!is.null(beta)) {
+    result <- result %*% t(beta)
+    cat("\n Beta : \n")
+    print(beta)
+    cat("The predicted data : \n")
+    print(result)
+  }
+
+  n <- dim(result)[1]
+  p <- dim(result)[2]
   if (!is.null(noise_func_args)) {
     temp_noise <- simulatr::noise_func(n, p, noise_func_args)
   } else {

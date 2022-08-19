@@ -61,7 +61,7 @@ such datasets as easy as possible.
   functions.
 - [ ] Improve literature research results.
 - [ ] Publish the package to CRAN.
-- [ ] Optional: speed up `list_datasets` by retrieving the metadata without
+- [x] Optional: speed up `list_datasets` by retrieving the metadata without
   actually downloading the expression matrix (maybe by querying the NCBI
   website)
 
