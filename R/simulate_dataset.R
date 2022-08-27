@@ -43,6 +43,21 @@
 #'   )
 #' )
 #' }
+#' \dontrun{
+#' simulate_dataset(
+#'   n = 10,
+#'   p = 10,
+#'   beta = matrix(1, 1, 10),
+#'   noise_func = uniform_noise,
+#'   noise_func_args = list(min = 0, max = 1),
+#'   bias_func = constant_batch_effect,
+#'   bias_func_args = list(
+#'     b = 3,
+#'     f = 4,
+#'     s = c(2, 3)
+#'   )
+#' )
+#' }
 #'
 #' @details see Readme.md
 #'
@@ -62,43 +77,39 @@ simulate_dataset <- function(n = 5,
       sample(ncol(base), p, replace = TRUE)
     ]
   }
-  cat("The actual simulated data : \n")
-  print(result)
+  base_data <- result
+
+  return_list <- list(base_data)
+  itr <- 1
 
   if (!is.null(beta)) {
-    result <- result %*% t(beta)
-    cat("\n Beta : \n")
-    print(beta)
-    cat("The predicted data : \n")
-    print(result)
+    y <- as.matrix(result) %*% t(beta)
+    itr <- itr + 1
+    return_list[[itr]] <- y
   }
 
-  n <- dim(result)[1]
-  p <- dim(result)[2]
-  if (!is.null(noise_func_args)) {
-    temp_noise <- simulatr::noise_func(n, p, noise_func_args)
+  if (class(noise_func) == "function") {
+    temp_noise <- noise_func(n, p, noise_func_args)
   } else {
     temp_noise <- noise_func
   }
   result <- result + temp_noise
-  cat("\nThe noise matrix : \n")
-  print(matrix(temp_noise, n, p))
+  itr <- itr + 1
+  return_list[[itr]] <- matrix(temp_noise, n, p)
 
-
-  if (!is.null(bias_func_args)) {
-    temp_bias <- simulatr::bias_func(n, p, bias_func_args)
-    cat("\nBatch : \n")
-    print(temp_bias[[1]])
-    cat("\nThe bias matrix : \n")
-    print(temp_bias[[2]])
+  if (class(bias_func) == "function") {
+    temp_bias <- bias_func(n, p, bias_func_args)
+    itr <- itr + 1
+    return_list[[itr]] <- temp_bias[[1]]
+    itr <- itr + 1
+    return_list[[itr]] <- temp_bias[[2]]
+    itr <- itr + 1
+    return_list[[itr]] <- temp_bias[[3]]
     result <- result + temp_bias[[2]]
   } else {
     temp_bias <- bias_func
-    cat("\nThe bias matrix : \n")
-    print(temp_bias)
-    result <- result + temp_bias
   }
-
-  cat("\nThe final simulated data : \n")
-  print(result)
+  itr <- itr + 1
+  return_list[[itr]] <- base_data
+  return(return_list)
 }

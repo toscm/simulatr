@@ -8,9 +8,10 @@ simulate_dataset(
   n = 5,
   p = 5,
   base = simulatr::normal_data(n, p),
-  noise_func = noise_func(n, p, noise_func_args),
+  beta = NULL,
+  noise_func = matrix(0, n, p),
   noise_func_args = NULL,
-  bias_func = bias_func(n, p, bias_func_args),
+  bias_func = matrix(0, n, p),
   bias_func_args = NULL
 )
 }
@@ -19,7 +20,9 @@ simulate_dataset(
 
 \item{p}{The number of features.}
 
-\item{base}{The base dataset to use as basis for the simulated data.}
+\item{base}{The base dataframe to use as basis for the simulated data.}
+
+\item{beta}{A (q*p) matrix to denote the effect of each feature}
 
 \item{noise_func}{A function taking the name of the noise function
 (e.g. random_noise, uniform_noise)}
@@ -59,14 +62,28 @@ simulate_dataset(
 simulate_dataset(
   n = 10,
   p = 10,
-  gse = "GSE3821",
   noise_func = uniform_noise,
   noise_func_args = list(min = 0, max = 1),
   bias_func = constant_batch_effect,
   bias_func_args = list(
     b = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4),
     f = 4,
-    s = c(0, 1)
+    s = c(0, 1, 2, 3)
+  )
+)
+}
+\dontrun{
+simulate_dataset(
+  n = 10,
+  p = 10,
+  beta = matrix(1, 1, 10),
+  noise_func = uniform_noise,
+  noise_func_args = list(min = 0, max = 1),
+  bias_func = constant_batch_effect,
+  bias_func_args = list(
+    b = 3,
+    f = 4,
+    s = c(2, 3)
   )
 )
 }

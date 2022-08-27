@@ -37,6 +37,6 @@ constant_batch_effect <- function(n, p, bias_func_args) {
     for (i in 1:n) {
         bias_mat[i, r] <- bias_mat[i, r] + bias_func_args$s[bias_func_args$b[i]]
     }
-    my_list <- list(bias_func_args, bias_mat)
+    my_list <- list(bias_func_args, bias_mat, r)
     return(my_list)
 }
