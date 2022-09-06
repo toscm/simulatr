@@ -16,6 +16,9 @@
 #' @return A data frame of size n*p with simulated data
 #' @examples
 #' \dontrun{
+#' simulate_dataset()
+#' }
+#' \dontrun{
 #' simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 #' }
 #' \dontrun{
@@ -95,39 +98,38 @@ simulate_dataset <- function(n = 5,
                              bias_func_args = NULL) {
   if (setequal(dim(base), c(n, p))) {
     result <- base
-  } else {
+  } else if (dim(base)[1] > n || dim(base)[2] > p) {
     result <- base[
       sample(nrow(base), n, replace = FALSE),
       sample(ncol(base), p, replace = FALSE)
     ]
+  } else {
+    stop(
+      "Dimension of the simulated data needs to be smaller or equal to
+       the base data."
+    )
   }
   base_data <- result
 
-  return_list <- list("raw_data" = base_data)
-  itr <- 1
+  return_list <- list("Raw_data" = base_data)
 
   if (!is.null(beta)) {
     y <- as.matrix(result) %*% t(beta)
-    itr <- itr + 1
     return_list[["y"]] <- y
   }
 
-  if (length(class(noise_func)) == 1) {
+  if (class(noise_func)[1] == "function") {
     temp_noise <- noise_func(n, p, noise_func_args)
   } else {
     temp_noise <- noise_func
   }
   result <- result + temp_noise
-  itr <- itr + 1
   return_list[["Noise_matrix"]] <- matrix(temp_noise, n, p)
 
-  if (length(class(bias_func)) == 1) {
+  if (class(bias_func)[1] == "function") {
     temp_bias <- bias_func(n, p, bias_func_args)
-    itr <- itr + 1
     return_list[["Bias_arguments"]] <- temp_bias[[1]]
-    itr <- itr + 1
     return_list[["Bias_matrix"]] <- temp_bias[[2]]
-    itr <- itr + 1
     return_list[["Features_affected"]] <- temp_bias[[3]]
     result <- result + temp_bias[[2]]
   } else {
@@ -135,7 +137,6 @@ simulate_dataset <- function(n = 5,
     return_list[["Bias_matrix"]] <- temp_bias
     result <- result + temp_bias
   }
-  itr <- itr + 1
   return_list[["Final_data"]] <- result
   return(return_list)
 }

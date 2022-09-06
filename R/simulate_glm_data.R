@@ -11,24 +11,22 @@
 #' }
 #' \dontrun{
 #' simulate_glm_data(dat = as.data.frame(simulatr::get_dataset(
-#'     gse =
-#'         "GSE3821"
+#'     gse = "GSE3821"
 #' )))
 #' }
-#' \dontrun{
-#' simulate_glm_data(dat = simulatr::simulate_gse(10,
-#'     10,
-#'     gse = "GSE3821"
-#' ))
-#' }
+#'
 simulate_glm_data <- function(dat) {
     d <- dat
     l <- length(colnames(d))
-    d <- d[, sample(1:ncol(d))]
+    d <- d[, sample(seq_len(ncol(d)))]
+    feature1 <- d[, 1]
+    quant <- stats::runif(length(d[, 1]), 0, 1)
+    d[, 1] <- stats::quantile(feature1, quant)
     for (i in 2:l) {
-        pred_i <- colnames(d)[2:i - 1]
-        model <- stats::glm(unlist(d[, i]) ~ .,
-            data = d[, c(colnames(d)[1], pred_i)],
+        pred_col <- colnames(d)[2:i - 1]
+        cur_col <- colnames(d)[i]
+        model <- stats::glm(unlist(dat[, cur_col]) ~ .,
+            data = dat[, c(colnames(d)[1], pred_col)],
             family = "gaussian"
         )
         d[, i] <- stats::predict(model, type = "response")

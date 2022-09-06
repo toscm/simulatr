@@ -45,6 +45,9 @@ see Readme.md
 }
 \examples{
 \dontrun{
+simulate_dataset()
+}
+\dontrun{
 simulate_dataset(n = 5, p = 5, base = data.frame(matrix(rnorm(6 * 6), 6, 6)))
 }
 \dontrun{

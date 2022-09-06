@@ -19,6 +19,12 @@
 
 simulate_gse <- function(n = 10, p = 10, gse = "GSE3821") {
     temp_data <- simulatr::get_dataset(gse)
+    if (dim(temp_data)[1] < n || dim(temp_data)[2] < p) {
+        stop(
+            "Dimension of the simulated data needs to be smaller or equal to
+             the base data."
+        )
+    }
     # feature name
     rnames <- sample(rownames(temp_data), n, replace = FALSE)
     # sample name

@@ -23,14 +23,8 @@ simulate_glm_data(base = simulatr::normal_data(5, 6))
 }
 \dontrun{
 simulate_glm_data(dat = as.data.frame(simulatr::get_dataset(
-    gse =
-        "GSE3821"
+    gse = "GSE3821"
 )))
 }
-\dontrun{
-simulate_glm_data(dat = simulatr::simulate_gse(10,
-    10,
-    gse = "GSE3821"
-))
-}
+
 }

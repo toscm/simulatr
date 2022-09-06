@@ -19,32 +19,29 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
     e.g. .github/workflows/*, README.md, etc. Infrastructure updates increase
     the patch version.
 
+## [0.1.3] - 2022-09-06
+
+- `Added` : simulate_glm_data.R
+- `Changed` : simulate_dataset.R
+- `Changed` : constant_batch_effect.R
+- `Changed` : test-simulate_dataset.R
+- `Changed` : test-constant_batch_effect.R
+- `Changed` : my-vignette.Rmd
+- `Changed` : README.Rmd
+
 ## [0.1.2] - 2022-08-12
 
-### Added
-
-- my-vignette.Rmd
-
-### Changed
-
-- noise_func and bias_func input in simulate_dataset
+- `Added` : my-vignette.Rmd
+- `Changed` : noise_func and bias_func input in simulate_dataset
 
 ## [0.1.1] - 2022-08-03
 
-### Added
-
-- dummy_func to make sure R CMD check recognizes that we're actually using the
+- `Added` : dummy_func to make sure R CMD check recognizes that we're actually using the
   memoise
-
-### Changed
-
-- .csv files to .rds files
-- simplest version of constant_batch_effect
-- Readme.md
-
-### Removed
-
-- 'gse' parameter from simulate_dataset
+- `Changed` : .csv files to .rds files
+- `Changed` : simplest version of constant_batch_effect
+- `Changed` : Readme.md
+- `Removed` : gse' parameter from simulate_dataset
 
 ## [0.1.0] - 2022-08-05
 
