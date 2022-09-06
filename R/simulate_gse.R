@@ -20,11 +20,11 @@
 simulate_gse <- function(n = 10, p = 10, gse = "GSE3821") {
     temp_data <- simulatr::get_dataset(gse)
     # feature name
-    rnames <- sample(rownames(temp_data), n, replace = TRUE)
+    rnames <- sample(rownames(temp_data), n, replace = FALSE)
     # sample name
-    cnames <- sample(colnames(temp_data), p, replace = TRUE)
+    cnames <- sample(colnames(temp_data), p, replace = FALSE)
     # data value
-    temp_list <- sample(temp_data, n * p, replace = TRUE)
+    temp_list <- sample(temp_data, n * p, replace = FALSE)
     data <- data.frame(matrix(temp_list, nrow = n, ncol = p))
     colnames(data) <- cnames
     rownames(data) <- rnames

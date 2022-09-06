@@ -58,7 +58,31 @@
 #'   )
 #' )
 #' }
-#'
+#' \dontrun{
+#' simulate_dataset(
+#'   n = 10,
+#'   p = 10,
+#'   base = data.frame(matrix(0, 10, 10)),
+#'   beta = matrix(1, 1, 10),
+#'   noise_func = uniform_noise,
+#'   noise_func_args = list(min = 0, max = 0.5),
+#'   bias_func = constant_batch_effect,
+#'   bias_func_args = list(
+#'     b = 3,
+#'     f = 5,
+#'     s = c(2, 3)
+#'   )
+#' )
+#' }
+#' \dontrun{
+#' simulate_dataset(
+#'   n = 5,
+#'   p = 5,
+#'   simulate_glm_data(dat = simulatr::simulate_gse(10, 10,
+#'     gse = "GSE3821"
+#'   ))
+#' )
+#' }
 #' @details see Readme.md
 #'
 simulate_dataset <- function(n = 5,
@@ -73,43 +97,45 @@ simulate_dataset <- function(n = 5,
     result <- base
   } else {
     result <- base[
-      sample(nrow(base), n, replace = TRUE),
-      sample(ncol(base), p, replace = TRUE)
+      sample(nrow(base), n, replace = FALSE),
+      sample(ncol(base), p, replace = FALSE)
     ]
   }
   base_data <- result
 
-  return_list <- list(base_data)
+  return_list <- list("raw_data" = base_data)
   itr <- 1
 
   if (!is.null(beta)) {
     y <- as.matrix(result) %*% t(beta)
     itr <- itr + 1
-    return_list[[itr]] <- y
+    return_list[["y"]] <- y
   }
 
-  if (class(noise_func) == "function") {
+  if (length(class(noise_func)) == 1) {
     temp_noise <- noise_func(n, p, noise_func_args)
   } else {
     temp_noise <- noise_func
   }
   result <- result + temp_noise
   itr <- itr + 1
-  return_list[[itr]] <- matrix(temp_noise, n, p)
+  return_list[["Noise_matrix"]] <- matrix(temp_noise, n, p)
 
-  if (class(bias_func) == "function") {
+  if (length(class(bias_func)) == 1) {
     temp_bias <- bias_func(n, p, bias_func_args)
     itr <- itr + 1
-    return_list[[itr]] <- temp_bias[[1]]
+    return_list[["Bias_arguments"]] <- temp_bias[[1]]
     itr <- itr + 1
-    return_list[[itr]] <- temp_bias[[2]]
+    return_list[["Bias_matrix"]] <- temp_bias[[2]]
     itr <- itr + 1
-    return_list[[itr]] <- temp_bias[[3]]
+    return_list[["Features_affected"]] <- temp_bias[[3]]
     result <- result + temp_bias[[2]]
   } else {
     temp_bias <- bias_func
+    return_list[["Bias_matrix"]] <- temp_bias
+    result <- result + temp_bias
   }
   itr <- itr + 1
-  return_list[[itr]] <- base_data
+  return_list[["Final_data"]] <- result
   return(return_list)
 }

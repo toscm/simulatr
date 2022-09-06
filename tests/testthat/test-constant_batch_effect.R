@@ -18,10 +18,8 @@ test_that("function works", {
       s = c(0, 1, 2)
     )
   )
-
   expected <- matrix(0, 10, 10)
-  testthat::expect_equal(dim(observed1), dim(expected))
-  testthat::expect_equal(dim(observed2), dim(expected))
-  testthat::expect_equal(dim(observed3), dim(expected))
-
+  testthat::expect_equal(dim(observed1[[2]]), dim(expected))
+  testthat::expect_equal(dim(observed2[[2]]), dim(expected))
+  testthat::expect_equal(dim(observed3[[2]]), dim(expected))
 })

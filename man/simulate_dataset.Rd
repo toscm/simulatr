@@ -87,5 +87,29 @@ simulate_dataset(
   )
 )
 }
-
+\dontrun{
+simulate_dataset(
+  n = 10,
+  p = 10,
+  base = data.frame(matrix(0, 10, 10)),
+  beta = matrix(1, 1, 10),
+  noise_func = uniform_noise,
+  noise_func_args = list(min = 0, max = 0.5),
+  bias_func = constant_batch_effect,
+  bias_func_args = list(
+    b = 3,
+    f = 5,
+    s = c(2, 3)
+  )
+)
+}
+\dontrun{
+simulate_dataset(
+  n = 5,
+  p = 5,
+  simulate_glm_data(dat = simulatr::simulate_gse(10, 10,
+    gse = "GSE3821"
+  ))
+)
+}
 }
