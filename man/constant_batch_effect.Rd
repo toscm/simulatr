@@ -16,7 +16,7 @@ constant_batch_effect(n, p, bias_func_args)
 for the batch effect function}
 }
 \value{
-A matrix of size n*p
+A list with bias_func_args and a matrix of size n*p
 }
 \description{
 \code{constant_batch_effect()} returns a dataset of

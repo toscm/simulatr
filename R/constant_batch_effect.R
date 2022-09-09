@@ -9,7 +9,7 @@
 #' @param p The number of features (e.g. genes)
 #' @param bias_func_args The arguments given by the user
 #' for the batch effect function
-#' @return A matrix of size n*p
+#' @return A list with bias_func_args and a matrix of size n*p
 #' @examples
 #' \dontrun{constant_batch_effect(n=10,p=10,bias_func_args = (
 #' list(b=c(1,1,1,2,2,2,3,3,4,4),f=4,s=c(0,1,1,2))))}
@@ -37,5 +37,6 @@ constant_batch_effect <- function(n, p, bias_func_args) {
     for (i in 1:n) {
         bias_mat[i, r] <- bias_mat[i, r] + bias_func_args$s[bias_func_args$b[i]]
     }
-    return(bias_mat)
+    my_list <- list(bias_func_args, bias_mat, r)
+    return(my_list)
 }
