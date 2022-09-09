@@ -19,7 +19,7 @@ generalized linear model
 }
 \examples{
 \dontrun{
-simulate_glm_data(base = simulatr::normal_data(5, 6))
+simulate_glm_data(dat = simulatr::normal_data(5, 6))
 }
 \dontrun{
 simulate_glm_data(dat = as.data.frame(simulatr::get_dataset(
